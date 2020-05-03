@@ -1,0 +1,49 @@
+\name{figureBox}
+\alias{figureBox}
+\title{Background graphic function}
+\description{A background function built into the graphing functions of
+  biostatrpts that creates boxes around titles, p-values, and sample
+  sizes in the margins of each figure}
+
+\usage{
+figureBox(boxPlot=TRUE,
+          demoBarPlot=FALSE,
+          pHoriz=pHoriz,
+          pTitle=pTitle,
+          titleCex=titleCex,
+          printPVals=printPVals,
+          pStrWrap=pStrWrap)
+}
+\arguments{
+  \item{boxPlot}{(logical) Is the figure a box plot (TRUE) or bar plot (FALSE)}
+  \item{demoBarPlot}{(logical) If boxPlot=FALSE is the bar plot a
+    demoBarPlot (TRUE) or regular bar plot (FALSE)}
+  \item{pHoriz}{(uwBar)(logical)}
+  \item{pTitle}{(string) Title of the figure}
+  \item{titleCex}{(numeric) magnification factor for sizing the title}
+  \item{printPVals}{(uwBar)(logical)}
+  \item{pStrWrap}{(uwBarPlot)(logical)}
+}
+
+\value{
+  Returns a list of number of y-axis units per margin line and x-axis
+  units per margin line
+}
+
+\details{
+  A background function built into the graphing functions of
+  biostatrpts that creates boxes around titles, p-values, and sample
+  sizes in the margins of each figure.  It also returns values that are
+  used for placement of text in the figure margins.  A figure must be
+  open to run this function as it calls for par("usr"), par("pin") and
+  other graphing parameters.
+}
+
+\seealso{uwBoxPlot and uwBarPlot}
+
+\author{University of Wisconsin-Madison Biostatistics and Medical
+  Informatics Department, Scott Hetzel M.S.}
+
+\examples{
+
+}

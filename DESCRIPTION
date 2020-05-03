@@ -1,0 +1,9 @@
+Package: biostatrpts
+Type: Package
+Title: Functions for UW-Biostatistics Report Creation
+Version: 3.2
+Date: 2016-10-05
+Author: Scott Hetzel <hetzel@biostat.wisc.edu>
+Maintainer: Scott Hetzel <hetzel@biostat.wisc.edu>
+Description: chron, survival, gdata
+License: GPL-2

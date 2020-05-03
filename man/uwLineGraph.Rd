@@ -1,0 +1,151 @@
+\name{uwLineGraph}
+\alias{uwLineGraph}
+\title{Line Graph of Means or Medians}
+\description{Line Graph of Means or Medians over multiple factor levels,
+  most often time points}
+\usage{
+uwLineGraph(data,
+            metricName,
+            trxName,
+            factorName,
+            LatexFileName=NULL,
+            plotMean=FALSE,
+            pch=NULL,
+            colScale=FALSE,
+            yLim=NULL,
+            yLab="",
+            xLab="",
+            pTitle=NULL,
+            refLines=TRUE,
+            Legend=TRUE,
+            LegendLoc="topright",
+            LegendCex=0.7,
+            printPVals=TRUE,
+            pTest=c("wilcox","t","kruskal","anova"),
+            pExclude=NULL,
+            trxControl=NULL,
+            pairDiffTab=FALSE,
+            ptIDname=NULL,
+            BaseLevel=NULL,
+            numDec=2,
+            rowLines=list(c(FALSE),c(FALSE)),
+            caption=list(c(NULL),c(NULL)),
+            firstCol.name=NULL,
+            Ropen=FALSE,
+            ...)
+}
+\arguments{
+  \item{data}{Data frame containing the necessary variables described
+    below}
+  \item{metricName}{(string) Name of numeric column in data}
+  \item{trxName}{(string) Name of Treatment column in data.  There will
+    be separate lines for each treatment level}
+  \item{factorName}{(sting) Name of factor column in data.  There will
+    be plotted points of the mean and median of each treatment at each
+    factor level.  Factor levels are on the x-axis and it is recommend
+    that it is an ordered factor}
+  \item{LatexFileName}{(string) Giving the folder and file(ending in
+    .tex) for the LaTeX table to be saved., length=2 if pairDiffTab=TRUE}
+  \item{plotMean}{(logical) TRUE plots mean values, FALSE plots median
+    values}
+  \item{pch}{(vector) Numeric specifying which plotting points should be
+    used to represent different treatment levels.  Default is
+    c(19,21,23,24,25,7,8,17,0,15)[1:nlevels(trxName)]}
+  \item{colScale}{(logic or vector) Default is FALSE which plots the
+    lines and points on a gray scale.  TRUE plots the lines and points
+    on a color scale like so: c("black","red","blue","forestgreen",
+    "gold2","violet","brown","chartreuse","lightgreen",
+    "magenta")[1:nlevels(trxName)], or you can put in your own set
+    of colors; length should match nlevels of trxName}
+  \item{yLim}{Limits of y axis, default makes sure there is a tick
+    mark above the max value and below the min value}
+  \item{yLab}{(string) y-axis Label}
+  \item{xLab}{(string) x-axis Label}
+  \item{pTitle}{(string) Plot Title}
+  \item{refLines}{(logical) TRUE plots dotted lines across the plot at
+    each y-axis tick, FALSE does not}
+  \item{Legend}{(logical) Show Legend in plot or not}
+  \item{LegendLoc}{(string) Placement of Legend according legend()}
+  \item{LegendCex}{(numeric) Magnification factor of the legend size}
+  \item{printPVals}{(logical) TRUE corresponds to p-values placed in
+    Latex table}
+  \item{pTest}{(string) Only if printPVals=TRUE:  Which test should
+    be conducted out of wilcoxon, t.test, anova, or kruskal.  Starting
+    letter will suffice}
+  \item{pExclude}{(string) Only if printPVals=TURE: List the
+    treatment levels (other than control level) that you do not want
+    to report p-values for.  Does not apply when pTest is anova or
+    kruskal}
+  \item{trxControl}{(string) Only if printPVals=TRUE:  List which level
+    of trxName is considered the control group}
+  \item{pairDiffTab}{(logical)  TRUE if paired differences want to be
+    examined because factorName indicates time points of repeated
+    measures.}
+  \item{ptIDname}{(string) Only if pairDiffTab=TRUE: Column name in
+    data that indicates patient ID's}
+  \item{BaseLevel}{(sring) Only if pairDiffTab=TRUE: Level in
+    factorName that should be considered the baseline level for
+    differencing}
+  \item{numDec}{(numeric) Number specifying how many decimals the
+    summary statistics should be rounded too.}
+  \item{rowLines}{(list of two logical vectors) Used in specifying
+    horizontal lines in the LaTeX tables.  First list spot is for
+    regular table, second is for difference table.  If
+    pairDiffTab=FALSE, then this needs not be a list.  See ?uwLatex}
+  \item{caption}{(list of two logical vectors) Used in specifying
+    the captions in the LaTeX tables. First list spot is for
+    regular table, second is for difference table.  If
+    pairDiffTab=FALSE, then this needs not be a list.  See ?uwLatex}
+  \item{firstCol.name}{(string)  Specifies the first column name in
+    the LaTeX tables.  Defaults to factorName}
+  \item{Ropen}{(logical) TRUE collapses across treatment levels and
+    plots mean or median for all patients}
+  \item{...}{Any other arguments that can be passed to uwLatex}
+}
+
+\examples{
+
+TRT <- rep(rep(c("A","B","C"), c(20,20,20)), 4)
+
+ptID <- rep(1:60, 4)
+ptID <- factor(ptID)
+
+numVar <- c(rnorm(20,0,1),rnorm(20,1,1),rnorm(20,2,1),rnorm(20,3,1),
+            rnorm(20,3,1),rnorm(20,10,1),rnorm(20,2,3),rnorm(20,0,1),
+            rnorm(20,6,1),rnorm(20,1,3),rnorm(20,2,5),rnorm(20,3,1))
+
+timeVar <- rep(c("Baseline","3 Months","6 Months", "12 Months"),c(60,60,60,60))
+timeVar <- ordered(timeVar,
+                   c("Baseline","3 Months","6 Months", "12 Months"))
+
+df <- data.frame(TRT, ptID, numVar, timeVar)
+
+
+uwLineGraph(data=df,
+            metricName="numVar",
+            trxName="TRT",
+            factorName="timeVar",
+            LatexFileName=NULL,
+            plotMean=TRUE,
+            pch=NULL,
+            colScale=TRUE,
+            yLim=NULL,
+            yLab="",
+            xLab="",
+            pTitle="Example of uwLineGraph",
+            refLines=TRUE,
+            Legend=TRUE,
+            LegendLoc="topright",
+            printPVals=TRUE,
+            pTest="t",
+            pExclude=NULL,
+            trxControl="A",
+            pairDiffTab=TRUE,
+            ptIDname="ptID",
+            BaseLevel="Baseline",
+            numDec=2,
+            rowLines=list(c(FALSE),c(FALSE)),
+            caption=list(c(NULL),c(NULL)),
+            firstCol.name="Time",
+            Ropen=FALSE)
+}

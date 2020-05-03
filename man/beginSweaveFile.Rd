@@ -1,0 +1,49 @@
+\name{beginSweaveFile}
+\alias{beginSweaveFile}
+\title{Creation of LaTex Code to start the .Rnw Sweave file}
+\description{Creation of .Rnw Sweave file for LaTeX and R code compiling
+  and ultimately PDF report creation.  Created to replace repTex}
+
+\usage{
+beginSweaveFile(filepath=getwd(),
+                filename="report",
+                stamp="Confidential",
+                title="Fix Title",
+                chead="",
+                cfoot="")
+}
+\arguments{
+  \item{filepath}{String giving the directory path to the directory
+    where the .Rnw file will be created}
+  \item{filename}{String giving the name of the file}
+  \item{stamp}{String giving the background stamp that will be on every
+    page of the LaTeX report}
+  \item{title}{String giving the title for the report}
+  \item{chead}{String giving the center header that will be on the top
+    of every page of the report}
+  \item{cfoot}{String giving the center foot that will be on the bottom
+    of every page of the report}
+}
+\value{
+  Output is a .Rnw file.  File is started with standard LaTeX preamble
+  that should be used in creating a LaTeX report.
+}
+\details{
+  This was created as a convenience for new reports.  No longer copy and
+  paste and edit LaTeX code from previous projects for a new project.
+  Do not run this function twice for the same project.  If this file
+  already exists it will be erased first and recreated therefore work
+  added to the file will be lost.
+}
+
+\author{University of Wisconsin-Madison Biostatistics and Medical
+  Informatics Department, Scott Hetzel M.S.}
+
+\seealso{Sweave()}
+
+\examples{
+
+#This will create a report.Rnw file in the working Rdirectory
+beginSweaveFile()
+
+}

@@ -1,0 +1,154 @@
+\name{uwConfBands}
+\alias{uwConfBands}
+\title{Confidence Bands for Hazard Ratios, Mean Differences, or Odds
+  Ratios}
+\description{This function is meant the creation of 95\% confidence
+  intervals for subsets of a data set.  Confidence intervals can be for
+  hazard ratios, mean differences, or odds ratios.}
+\usage{
+uwConfBands(fullData,
+            trxName,
+            trxLevels,
+            factVarNames,
+            factFigNames=NULL,
+            estimate=c("hazard","mean","proportion"),
+            pTitle=NULL,
+            coxMethod=c("breslow","efron"),
+            timeName=NULL,
+            statusName=NULL,
+            metricName=NULL,
+            printPVals=TRUE,
+            interactPVals=FALSE,
+            xLim=NULL,
+            xLog=TRUE,
+            xDetailed=TRUE,
+            leftMarWidth=2,
+            lineWidth=6,
+            pointSize=1.3,
+            LatexFileName=NULL,
+            ...)
+}
+\arguments{
+  \item{fullData}{Name of the data frame loaded into R.}
+  \item{trxName}{String of name of treatment factor in fullData}
+  \item{trxLevels}{Vector of strings giving the two levels of trxName to
+    be used for the figure and table}
+  \item{factVarNames}{Vector of strings giving all of the variable names
+    in fullData that will be indivdually subsetted on.}
+  \item{factFigNames}{Vector of strings giving all of the names that will
+    be used in the figure.  Used when factVarNames are not actually how
+    you want the variables represented in the figure.  There is positional
+    matching between this and factVarNames}
+  \item{estimate}{String indicating which statistic should be estimated
+    from the data. "hazard", "mean", or "proportion" first letter is
+    sufficient}
+  \item{pTitle}{String to be used as the Figure's title}
+  \item{coxMethod}{Method for coxph() in handling ties. Defaults to
+    breslow"}
+  \item{timeName}{Only used if estimate="h".  String giving the variable
+    name that is gives the survival time}
+  \item{statusName}{Used if estimate="h" or estimate="p". String giving
+    the variable name that indicates whether or not the outcome of interest
+    occurred. This should be logical or 0's and 1's.}
+  \item{metricName}{Only used if estimate="m".  String giving the variable
+    name that the differences in means between treatment levels should be
+    calculated for.}
+  \item{printPVals}{(logical) TRUE to have p-values printed}
+  \item{interactPVals}{(logical) TRUE reports interaction p-values,
+    FALSE is regular treatment comparison p-values}
+  \item{xLim}{Specifies the limits of the x-axis.  If null, each method
+    based on estimate has it's own default}
+  \item{xLog}{Only used if estimate="h".  Logic for type of x-axis to be
+    printed. TRUE = log scale x-axis.  FALSE = unit scale x-axis.}
+  \item{xDetailed}{Only used if estimate="h".  Logic for type of x-axis
+    printed. TRUE has multiple default tick locations.  FALSE has
+    default locations based on axis(1)}
+  \item{leftMarWidth}{Sets the width of the left margin where the subset
+    indications will be printed}
+  \item{lineWidth}{Sets the width of the lines used for the confidence
+    bands}
+  \item{pointSize}{The cex for the square box representing the point
+    estimates}
+  \item{LatexFileName}{A vector of strings giving the folder and
+    file(ending in .tex) for the LaTeX table to be saved.  The default
+    is NULL, which will not save the table only print the matrix.}
+  \item{...}{Any other arguement that can be passed to uwLatex()}
+}
+
+\value{
+  Output is a figure and a LaTeX table. If LatexFileName is null, the
+  matrix of data is printed
+}
+\details{
+  Additional LaTeX Packages Required if LtxTranspose=TRUE:
+  usepackage\{multirow\}
+  usepackage\{longtable\} if type="longtable"
+  Special functions Required:  uwLatex()
+}
+\author{University of Wisconsin-Madison Biostatistics and Medical
+  Informatics Department and Frontier Science, Scott Hetzel M.S.
+}
+
+\seealso{uwLatex()}
+\examples{
+
+data(colon) # from library(survival)
+colon$sex.f <- factor(colon$sex,levels=c(0,1),labels=c("Female","Male"))
+colon$surg.f <- factor(colon$surg, levels=c(0,1),
+labels=c("Short","Long"))
+colon$differ.f <- factor(colon$differ, levels=c(1,2,3),
+labels=c("Well","Moderate","Poor"))
+
+
+
+uwConfBands(fullDat=colon,
+            trxName="rx",
+            trxLevels=c("Obs","Lev"),
+            factVarNames=c("sex.f","age","surg.f","differ.f"),
+            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+            estimate="m",
+            metricName="nodes",
+            printPVals=FALSE,
+            LatexFileName=NULL)
+
+
+uwConfBands(fullDat=colon,
+            trxName="rx",
+            trxLevels=c("Obs","Lev"),
+            factVarNames=c("sex.f","age","surg.f","differ.f"),
+            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+            estimate="p",
+            statusName="status",
+            printPVals=TRUE,
+            LatexFileName=NULL)
+
+layout(matrix(c(1,1,1,1,2,2,2,2),nrow=2,byrow=TRUE))
+uwConfBands(fullDat=colon,
+            trxName="rx",
+            trxLevels=c("Obs","Lev"),
+            factVarNames=c("sex.f","age","surg.f","differ.f"),
+            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+            estimate="h",
+            statusName="status",
+            timeName="time",
+            xLim=c(0.25,5),
+            xLog=TRUE,
+            printPVals=TRUE,
+            interactPVals=TRUE,
+            LatexFileName=NULL)
+
+uwConfBands(fullDat=colon,
+            trxName="rx",
+            trxLevels=c("Obs","Lev"),
+            factVarNames=c("sex.f","age","surg.f","differ.f"),
+            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+            estimate="h",
+            statusName="status",
+            timeName="time",
+            xLim=c(0,2),
+            xLog=FALSE,
+            xDetailed=FALSE,
+            printPVals=TRUE,
+            interactPVals=TRUE,
+            LatexFileName=NULL)
+}

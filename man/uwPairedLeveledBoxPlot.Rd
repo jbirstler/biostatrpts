@@ -1,0 +1,97 @@
+\name{uwPairedLeveledBoxPlot}
+\alias{uwPairedLeveledBoxPlot}
+\title{Box Plots of Paired Numeric Variables over different Levels}
+\description{This function is meant for the creation of box plots for
+  paired numeric variables over the levels of a factor.  This function
+  also produces the LaTeX code needed to create the two corresponding LaTeX
+  tables summarizing the box plots numerically.}
+\usage{
+uwPairedLeveledBoxPlot(pairData,
+                pairName,
+                metricName,
+                factorName,
+                ptID,
+                LatexFileName,
+                pTitle=NULL,
+                yLab=NULL,
+                pTest=c("w","t"),
+                plotMean=FALSE, pOutliers=FALSE,
+                lWhisker=.05, hWhisker=.95,
+                lHinge=.25, hHinge=.75,
+                boxWex=.75,
+                printPVals=TRUE,
+                yLim=NULL,
+                showTab=FALSE,
+                printDiff=FALSE, ...)
+}
+\arguments{
+  \item{pairData}{Data frame with relevant variables.}
+  \item{pairName}{String of the factor variable name in pairData that
+    gives the two levels being compared.}
+  \item{metricName}{String of the variable name that represents the
+    numeric variable in pairData}
+  \item{factorName}{String of the variable name in pairData that gives
+    the levels that the comparisons will be made at separately}
+  \item{ptID}{String of the variable name that represents the patient
+    identification variable in pairData}
+  \item{LatexFileName}{String of length 2. Giving the folder and files
+    (ending in .tex) for the LaTeX tables to be saved.}
+  \item{pTitle}{String of the Title of the plot of the individual box
+    plots.}
+  \item{yLab}{String of the y-axis label of the plot of the individual
+    box plots.}
+  \item{pTest}{String. "w" gives Wilcoxon Signed Rank p-values on
+    the vector of paired differences for each level of factorName. "t"
+    gives Student's T-test p-values.  Defaults to "w"}
+  \item{plotMean}{Logical. TRUE -> Gives a line in the box plot that
+    shows where the mean is.}
+  \item{pOutliers}{Logical.  TRUE -> Plots outliers as circles}
+  \item{lWhisker, hWhisker}{Percentages to depict the whiskers of the
+    box plot. l for lower whisker and h for higher whisker.}
+  \item{lHinge, hHinge}{Percentages where the corners of the boxes
+    be. Default is 1st and 3rd quartiles}
+  \item{boxWex}{Numeric between 0 and 1 for width of boxes.}
+  \item{printPVals}{Logical. Do you want P-values to be reported?}
+  \item{yLim}{Limits of the y-axis. In format: c(start, finish)}
+  \item{showTab}{Logical. TRUE prints LaTeX table using structure()
+    function}
+  \item{printDiff}{Logical. TRUE will return the difference vector} 
+  \item{...}{Any argument that can be passed to uwLeveledBoxPlot that
+    isn't already an argument in uwPairedLeveledBoxPlot.}
+}
+
+\details{Additional Packages Required: uwLeveledBoxPlot() and uwLatex()
+  are embedded in uwPairedLevelBoxPlot
+
+Function matches ptID readings for pre (first level of pairName) to
+corresponding post (second level of pairName) reading.  A Wilcoxon
+Signed Rank Test for paired data is conducted on the matched pairs and
+that p-value is reported, or Paired T-test if pTest="t".  The difference
+box is shown as post-pre.} 
+
+\seealso{uwLeveledBoxPlot, uwLatex}
+\author{University of Wisconsin-Madison Biostatistics and Medical
+  Informatics Department, Scott Hetzel M.S. and Frontier Science and
+  Technology Research Foundation, Patrick Lenon and Zekai Otles}
+
+\examples{
+
+trt <- rep(c("Case","Control"), 60)
+id <- rep(rep(1:20, rep(2, 20)),3)
+fact <- rep(c("A","B","C"), c(40,40,40))
+met <- c(rnorm(40,10),rnorm(40,11),rnorm(40,12))
+
+df <- data.frame(trt, id, fact, met)
+
+uwPairedLeveledBoxPlot(pairData=df, pairName="trt", metricName="met",
+                       factorName="fact", ptID="id",
+                       LatexFileName=NULL,
+                       yLab="Normal", pTest="w",
+                       pTitle="Example of uwPairedLeveledBoxPlot",
+                       plotMean=TRUE, pOutliers=FALSE,
+                       lWhisker=.05, hWhisker=.95,
+                       rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE),
+                       lHinge=.25, hHinge=.75, 
+                       boxWex=0.75, printPVals=TRUE)
+
+}

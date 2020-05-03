@@ -1,0 +1,63 @@
+\name{inputTex}
+\alias{inputTex}
+\title{Create Tex code to input LaTeX tables}
+\description{This function is meant to be used in a .Rnw Sweave document
+  to create the LaTeX code input\{...\} necessary to place tables in
+  the final document. Arguments in R chunk in the .Rnw file must be
+  results=tex and include=FALSE}
+
+\usage{
+inputTex(texName,
+         clearpage=TRUE,
+         multicols=FALSE,
+         numCols=2)
+}
+\arguments{
+  \item{texName}{Vector of strings indicating the name of the .tex file
+    that holds the LaTeX code for creating the table}
+  \item{clearpage}{Logical: TRUE indicates clearpage will
+    be added to the LaTeX code after all of the
+    input\{...\} statements are written}
+  \item{multicols}{Logical: TRUE indicates that the tables given in
+    texName should be oriented into multiple columns on the page.  This
+    means that the 'begin' statement of all of the tables in
+    texName must be of the format begin\{tablehere\} and
+    likewise for the 'end' statement.  Default is FALSE}
+  \item{numCols}{Numeric indicating number of columns the tables should
+    be put into}
+}
+
+\value{
+  input\{texName[i].tex\} will be placed into .tex file
+  created when Sweave is run
+}
+
+\details{
+  Meant to be implemented in the compiling of a .Rnw file by Sweave()
+  command.
+}
+
+\seealso{Sweave()}
+
+\author{University of Wisconsin-Madison Biostatistics and Medical
+  Informatics Department, Scott Hetzel M.S.}
+
+\examples{
+# Not Run
+#
+# First calling a R chunck in Sweave language
+#    <<tex, results=tex, include=FALSE>>=
+#     inputTex(c("Age","Sex","Weight","Height"))
+#    @
+#
+# Must have Age.tex, Sex.tex, Weight.tex and Height.tex in the
+# same directory that the .Rnw file is.
+#
+# Output will look like:
+#
+# \input{Age.tex}
+# \input{Sex.tex}
+# \input{Weight.tex}
+# \input{Height.tex}
+# \clearpage
+}
