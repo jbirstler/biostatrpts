@@ -2,6 +2,139 @@
 # Function uwPairedBoxPlot 
 ############################
 
+
+
+#' Box Plots of Paired Numeric Variables
+#' 
+#' This function is meant for the creation of box plots for paired numeric
+#' variables.  This function also produces the LaTeX code needed to create the
+#' corresponding LaTeX table summarizing the box plots numerically.
+#' 
+#' Additional Packages Required: Hmisc for latex function to create table.
+#' 
+#' Function matches ptID readings for pre (first level of pairName) to
+#' corresponding post (second level of pairName) reading.  A Wilcoxon Signed
+#' Rank Test for paired data is conducted on the matched pairs and that p-value
+#' is reported. The difference box is shown as post-pre.
+#' 
+#' @param allData Data frame with relevant variables.
+#' @param pairName String of the factor variable name in allData that gives the
+#' two levels being compared.
+#' @param metricName String of the variable name that represents the numeric
+#' variable in allData
+#' @param ptID String of the variable name that represents the patient
+#' identification variable in allData
+#' @param onlyPairs Logical.  TRUE implies only the ptID numbers with both pre-
+#' and post-scores in metricName will be used in the individual plots.  FALSE
+#' implies all data will be included in the individual box plots.
+#' @param plotDiff Logical. TRUE implies that the box plot of the difference
+#' (of full pairs only) will be plotted also. See chgLayout and layout. FALSE
+#' implies only the individual plots will be plotted.
+#' @param plotDiffOnly Logical. TRUE only the paired difference boxplot will be
+#' plotted.  LaTeX table will still have all data in it.
+#' @param pctChange Logical. TRUE will give the percent change from baseline
+#' instead of differences. plotDiff must be TRUE to work
+#' @param chgLayout Logical. TRUE implies the layout of the plotting screen
+#' should be changed inside the function.  The layout must be changed if
+#' plotDiff=T.  This can be done in one of two ways: manually or with this
+#' argument.  Manually must be done before this function is run.  This is done
+#' with the layout() function. This is beneficial if you want to put more than
+#' the two plots produced by this function on one plot.  Alternatively the
+#' layout can be changed in the function by chgLayout==T the default is set to
+#' layout(matrix(c(1,1,2),nrow=1))
+#' @param pWilcox Logical: TRUE implies Wilcoxon Signed Rank p-value on the
+#' paired differences should be given.  FALSE gives paired T-test p-value.
+#' @param LatexFileName String. Giving the folder and file(ending in .tex) for
+#' the LaTeX table to be saved. The default is NULL, which will create a table
+#' in the current directory of the R session, and will have the file name of
+#' the metricName.tex.
+#' @param pTitle String of the Title of the plot of the individual box plots.
+#' @param yLab String of the y-axix label of the plot of the individual box
+#' plots.
+#' @param plotMean Logical. TRUE -> Gives a line in the box plot that shows
+#' where the mean is.
+#' @param pOutliers Logical.  TRUE -> Plots outliers
+#' @param lWhisker,hWhisker Percentages to depict the whiskers of the box plot.
+#' l for lower whisker and h for higher whisker.
+#' @param lHinge,hHinge Percentages where the corners of the boxes be. Default
+#' is 1st and 3rd quartiles
+#' @param boxWex Numeric between 0 and 1 for width of boxes.
+#' @param printPVals Logical. Do you want P-values to be reported?
+#' @param yLim Limits of the y-axis. In format: c(start, finish)
+#' @param footNote String. Placed as a footnote in the bottom left side of the
+#' plot margin.
+#' @param firstCol.name (string) Name for first column, which is like a title
+#' for the rows.
+#' @param LatexCaption String to be used as the caption for the LaTeX table.
+#' Defaults to metricName.
+#' @param showTab Logical. TRUE prints LaTeX table using structure() function
+#' @param ... Any argument that can be passed to uwLatex()
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S. and Frontier Science and
+#' Technology Research Foundation, Patrick Lenon and Zekai Otles
+#' @examples
+#' 
+#' 
+#' Time <- ordered(c(rep("Pre", 100), rep("Post", 100)), c("Pre","Post"))
+#' ID <- rep(sample(c(1:100),100,replace=FALSE),2) #IDs will not be in order
+#' weight <- c(rnorm(100,200,3), rnorm(100,197,3)) #pretend they are paired
+#' 
+#' ID[3] <- NA
+#' ID[176] <- NA   #Possible missing data
+#' ID[150] <- 101  #Say someone as only one reading in post
+#' 
+#' dat <- data.frame(Time, ID, weight)
+#' 
+#' # onlyPairs=T, plotDiff=T
+#' uwPairedBoxPlot(allData=dat,
+#'                 pairName="Time",
+#'                 metricName="weight",
+#'                 ptID="ID",
+#'                 onlyPairs=TRUE,
+#'                 plotDiff=TRUE,
+#'                 chgLayout=TRUE,
+#'                 pWilcox=TRUE,
+#'                 LatexFileName=NULL,
+#'                 pTitle="uwPairedBoxPlot Example",
+#'                 yLab="Weight (lbs.)",
+#'                 plotMean=FALSE, pOutliers=FALSE,
+#'                 lWhisker=.05, hWhisker=.95,
+#'                 lHinge=.25, hHinge=.75,
+#'                 boxWex=.75,
+#'                 printPVals=TRUE,
+#'                 yLim=NULL,
+#'                 footNote=NULL,
+#'                 firstCol.name=NULL,
+#'                 LatexCaption=NULL,
+#'                 caption.loc="bottom",
+#'                 showTab=FALSE,
+#'                 label=NULL)
+#' 
+#' # onlyPairs=F, plotDiff=T
+#' uwPairedBoxPlot(allData=dat,
+#'                 pairName="Time",
+#'                 metricName="weight",
+#'                 ptID="ID",
+#'                 onlyPairs=FALSE,
+#'                 plotDiff=TRUE,
+#'                 chgLayout=TRUE,
+#'                 pWilcox=TRUE,
+#'                 LatexFileName=NULL,
+#'                 pTitle="uwPairedBoxPlot Example",
+#'                 yLab="Weight (lbs.)",
+#'                 plotMean=FALSE, pOutliers=FALSE,
+#'                 lWhisker=.05, hWhisker=.95,
+#'                 lHinge=.25, hHinge=.75,
+#'                 boxWex=.75,
+#'                 printPVals=TRUE,
+#'                 yLim=NULL,
+#'                 footNote=NULL,
+#'                 firstCol.name=NULL,
+#'                 LatexCaption=NULL,
+#'                 caption.loc="bottom",
+#'                 showTab=FALSE,
+#'                 label=NULL)
+#' 
 uwPairedBoxPlot <- function(allData,
                             pairName,
                             metricName,

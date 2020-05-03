@@ -1,5 +1,32 @@
-
-
+#' Background graphic function
+#' 
+#' A background function built into the graphing functions of biostatrpts that
+#' creates boxes around titles, p-values, and sample sizes in the margins of
+#' each figure
+#' 
+#' A background function built into the graphing functions of biostatrpts that
+#' creates boxes around titles, p-values, and sample sizes in the margins of
+#' each figure.  It also returns values that are used for placement of text in
+#' the figure margins.  A figure must be open to run this function as it calls
+#' for par("usr"), par("pin") and other graphing parameters.
+#' 
+#' @param boxPlot (logical) Is the figure a box plot (TRUE) or bar plot (FALSE)
+#' @param demoBarPlot (logical) If boxPlot=FALSE is the bar plot a demoBarPlot
+#' (TRUE) or regular bar plot (FALSE)
+#' @param pHoriz (uwBar)(logical)
+#' @param pTitle (string) Title of the figure
+#' @param titleCex (numeric) magnification factor for sizing the title
+#' @param printPVals (uwBar)(logical)
+#' @param pStrWrap (uwBarPlot)(logical)
+#' @return Returns a list of number of y-axis units per margin line and x-axis
+#' units per margin line
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S.
+#' @seealso uwBoxPlot and uwBarPlot
+#' @examples
+#' 
+#' 
+#' 
 figureBox <- function(boxPlot=TRUE,
                       demoBarPlot=FALSE,
                       pHoriz=pHoriz,

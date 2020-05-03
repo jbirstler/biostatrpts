@@ -7,3 +7,4 @@ Author: Scott Hetzel <hetzel@biostat.wisc.edu>
 Maintainer: Scott Hetzel <hetzel@biostat.wisc.edu>
 Description: chron, survival, gdata
 License: GPL-2
+RoxygenNote: 7.1.0

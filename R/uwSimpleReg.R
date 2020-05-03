@@ -1,5 +1,39 @@
-
-
+#' Scatter Plot with Simple Linear Regression Line
+#' 
+#' This function creates a scatter plot of two continuous variables and adds
+#' the fitted simple linear regression line.
+#' 
+#' 
+#' @param Data Data frame with response and dependent variable
+#' @param respVar String of the response variable's name in Data
+#' @param depVar String of the dependent variable's name in Data
+#' @param printPVal Logical: TRUE indicates p-value for beta1 = 0 is printed in
+#' margin of plot
+#' @param printModel Logical: TRUE indicates fitted model is printed in margin
+#' of plot
+#' @param printRsq Logical: TRUE indicates multiple R-squared is printed in
+#' margin of plot
+#' @param returnList Logical: TRUE returns list of Coefficient and P-Value
+#' @param ... Any other arguments that can be used by plot()
+#' @return Plots a scatterplot and regression line.  Returns list of beta1
+#' coefficient and p-value
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S.
+#' @seealso plot(), abline(), lm()
+#' @examples
+#' 
+#' 
+#'   Xvar <- rnorm(50,-10,1)
+#'   Yvar <- 0.5*Xvar + rnorm(50,0,1)
+#' 
+#'   dfLin <- data.frame(Xvar,Yvar)
+#'  
+#'   layout(1)
+#'   uwSimpleReg(Data=dfLin,respVar="Yvar",depVar="Xvar",
+#'               main="Example of uwSimpleReg",
+#'               ylab="Example Response", xlab="Example Explanatory",
+#'               ylim=NULL,xlim=NULL, printPVal=TRUE,printModel=TRUE,printRsq=TRUE)
+#' 
 uwSimpleReg <- function(Data,
                         respVar,
                         depVar,

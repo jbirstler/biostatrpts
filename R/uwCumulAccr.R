@@ -1,3 +1,92 @@
+#' Cumulative Accrual Line Graphs
+#' 
+#' Cumulative accrual line graphs for the total cohort or separated by
+#' treatment level.  Also available is the ability to add projected accrual
+#' lines for total cohort or separated by treatment level. Beneficial for DSMB
+#' to judge if pre-determined accrual rates are being met.
+#' 
+#' 
+#' @param accData Data frame which includes an accural date for each patient
+#' @param dateName (string) Variable name in accData indicating the date of
+#' accrual. Must be a variable with class type "dates" from library(chron).
+#' Function will try to coherce non-dates variables into dates of the format
+#' "m/d/y".
+#' @param trxName (string) Optional string giving the name of the variable in
+#' accData that indicates treatment assignment. If used, then cumulative
+#' accrual is given separately for each treatment level. If NULL then any
+#' possible treatment levels are collapsed and treated as one large group
+#' @param yLab (string) Y label of graphic
+#' @param yLim (numeric) Limits of y axis of graphic. Default is the default of
+#' plot
+#' @param pTitle (string) Title of graphic
+#' @param LegendCor Manually enter where the legend should be placed on the
+#' graph.  Must be a set of coordinates of length 2 (X,Y).
+#' @param startDate (string) Date in which the x-axis should start.  Generally
+#' when accrual opened for the project.  Must be in m/d/y format. Defaults to
+#' the minimum date in dateName.
+#' @param currentDate (string) Date in which the x-axis should end. Generally
+#' when report is being created.  Must be in m/d/y format.  Defaults to the
+#' maximum date in dateName.
+#' @param projectLine (list) List of length two with each element needing to be
+#' numeric. PatsPerTRT is the number of patients expected to be accrued in each
+#' treatment. Must be of length 1 or length equal to number of trxName levels.
+#' If length is 1 then this indicates equal accrual in each arm. Order of
+#' PatsPerTRT must match order of trxName levels. DaysPerTRT is the number of
+#' days that enrollment will be open for each treatment arm.  Again if length
+#' of 1 then this is equal accrual time for each arm.  If these numbers are
+#' provided, then a projected accrual line will be added to the graphic either
+#' for the total cohort or for the individual treatment arms
+#' @param titleCex (numeric) Magnification of title size
+#' @return a line graph
+#' @author Scott J Hetzel MS. UW-Madison Department of Biostatistics and
+#' Medical Informatics. Contributions from Patrick Lenon. Frontier Science and
+#' Technology Research Foundation
+#' @examples
+#' 
+#' 
+#' Dates <- c("03/01/2008","09/01/2007","07/01/2007","12/01/2006","08/01/2007","08/01/2007",
+#' "04/01/2007","04/01/2007","04/01/2007","11/01/2006","11/01/2006","12/01/2006",
+#' "12/01/2006","10/01/2006","01/01/2007","11/01/2006","12/01/2006","02/01/2007",
+#' "08/01/2007","08/01/2006","09/01/2006","04/01/2007","05/01/2007","11/01/2006",
+#' "10/01/2006","03/01/2007","10/01/2007","07/01/2007","03/01/2007","04/01/2006",
+#' "05/01/2006","11/01/2006","12/01/2006","02/01/2007","02/01/2007","02/01/2007",
+#' "04/01/2007","05/01/2007","07/01/2007","08/01/2007","11/01/2007","10/01/2007",
+#' "09/01/2007","10/01/2007","05/01/2007","01/01/2008","12/01/2006","02/01/2007",
+#' "03/01/2007","04/01/2007","04/01/2007","05/01/2007","07/01/2007","02/01/2007",
+#' "07/01/2007","10/01/2007","01/01/2008")
+#' 
+#' library(chron)
+#' Date <- chron(Dates, format=c(dates="m/d/y"))
+#' TRT <- rep(c("A","B"), c(30,27))
+#' 
+#' data <- data.frame(Date, TRT)
+#' 
+#' layout(matrix(c(1,2,3,4), nrow=2, byrow=T))
+#' 
+#' uwCumulAccr(accData=data, dateName="Date", trxName=NULL,
+#'             yLab="Cumulative Number of Subjects",
+#'             yLim=NULL,
+#'             pTitle="Accural over Time for Total Cohort",
+#'             projectLine=list(PatsPerTRT=as.numeric(),DaysPerTRT=as.numeric()))
+#' # Projected accrual of 32 per arm over 750 days
+#' uwCumulAccr(accData=data, dateName="Date", trxName=NULL,
+#'             yLab="Cumulative Number of Subjects",
+#'             yLim=NULL,startDate="01/01/06",
+#'             pTitle="Total Cohort with equal projected accrual",
+#'             projectLine=list(PatsPerTRT=64,DaysPerTRT=750))
+#' 
+#' uwCumulAccr(accData=data, dateName="Date", trxName="TRT",
+#'             yLab="Cumulative Number of Subjects",
+#'             yLim=NULL,
+#'             pTitle="Accural over Time by Treatment Arm",
+#'             projectLine=list(PatsPerTRT=as.numeric(),DaysPerTRT=as.numeric()))
+#' # Projected accrual of 30 in A and 27 in B over 700 days
+#' uwCumulAccr(accData=data, dateName="Date", trxName="TRT",
+#'             yLab="Cumulative Number of Subjects",
+#'             yLim=c(0,70),LegendCor=c(25,55),
+#'             pTitle="Accural over Time by Treatment Arm",
+#'             projectLine=list(PatsPerTRT=c(30,27),DaysPerTRT = 700))
+#' 
 uwCumulAccr <- function(accData, dateName, trxName=NULL,
                         yLab="Cumulative Number of Subjects",
                         yLim=NULL,

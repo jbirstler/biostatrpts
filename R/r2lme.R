@@ -1,3 +1,16 @@
+#' Calculates R-squared for lme model
+#' 
+#' Calculates R-squared for lme model
+#' 
+#' implements R2 from Edwards, Muller, Wolfinger, Qaqish and Schabenberger,
+#' 2008.  need the aod package for wald.test function
+#' 
+#' @param obj lme object
+#' @return R-square value
+#' @examples
+#' 
+#' 
+#' 
 r2lme <-
   function(obj) {
     ## implements R2 from Edwards, Muller, Wolfinger, Qaqish and

@@ -1,3 +1,141 @@
+#' Creation of LaTeX code for tables
+#' 
+#' This function is used and embedded in the biostatrpts functions to create
+#' the LaTeX table that corresponds to the graph created. This was developed as
+#' an alternative to the latex function in the Hmisc package. It eliminates the
+#' extra "empty" columns and rows that the latex function created; making it
+#' easier to get vertical lines correctly into the table.
+#' 
+#' Additional R Packages Required: None.  LaTeX Packages Required:
+#' usepackage{graphicx}, usepackage{multirow} (transpose=T),
+#' usepackage{multicol} (type=multicol), usepackage{portland} (type=landscape),
+#' and usepackage{longtable} (type=longtable)
+#' 
+#' Written with help from openly available source code from the latex()
+#' function from the Hmisc package written by Frank E. Harrell Jr. Ph.D,
+#' Professor of Statistics at Vanderbilt.
+#' 
+#' @param mat The matrix of data that will be converted into code for a LaTeX
+#' table. If the matrix has rownames they will be ignored. However, the first
+#' column of the matrix can be considered the row names of the table.  If there
+#' is ever a gap or a blank field meant to be in the table, an empty string,
+#' i.e. "", should be in the matrix at the desired spot.
+#' @param file A string giving the folder and file(ending in .tex) for the
+#' LaTeX table to be saved.  The default is NULL, which will create the table
+#' in the current directory of the R session, and will have the file name of
+#' the label.tex, if label is NULL, then it will be (name of the matrix).tex
+#' @param type One of c("normal","multicol","landscape","longtable"). Default
+#' is "normal". "normal" creates a normal LaTex table. "multicol" places code
+#' in the start and end of the begin{table} statement that indicates this table
+#' will be part of a multicol statement in the main LaTeX code. "landscape"
+#' places code in the start and end of the begin{table} statement that
+#' indicates this table will be printed on a landscape formatted page.
+#' "longtable" places code in the start and end of the table LaTeX code that
+#' allows the table to be longer than one page and will create column headings
+#' for each page and indicate that the table is continued on the next page.
+#' @param transpose Logical.  TRUE transposes the matrix.  This is done in the
+#' situation of having a wide table that is too wide for the page.  With
+#' transpose on, cgroup and n.cgroup will be used for the row headings.
+#' cgroup.just will be disregarded.  col.just will still refer to the columns
+#' and rowLines will still be used for the rows of the transposed matrix.
+#' @param twofactors Logical. Only applies if transpose==T.  Indicates whether
+#' there are two factors that are represented in the first two columns of mat
+#' that will become the cgroup and the colnames of the transposed matrix.
+#' FALSE, takes first column of mat and makes them the column names of the
+#' transposed matrix.
+#' @param where Any combination of h (here),t (top),b (bottom),p (page of
+#' tables). All together allows for any of them to happen depending on LaTeX.
+#' Disregarded if multicol=TRUE
+#' @param justify Justification of the table: "flushleft", "center", or
+#' "flushright".
+#' @param size Font size of items in table: See LaTeX font size commands for
+#' options.
+#' @param cgroup.type Font type for the grouped column names. See LaTeX
+#' documentation for possible options. Default is bold faced.
+#' @param cgroup Vector of strings naming the grouped columns.
+#' @param n.cgroup Vector of numbers indicating how many single columns the
+#' corresponding group column name should cover.  length(cgroup) =
+#' length(n.cgroup) and sum(n.cgroup) = ncol(mat) must be true.
+#' @param cline (logical) TRUE puts a horizontal line between cgroup and
+#' colnames of mat
+#' @param rowLines Logical vector. If changed from default, must be same length
+#' as the number of rows in mat.  TRUE adds horizontal line after that row in
+#' the table.  Last row automatically has a line. So TRUE in last spot in
+#' vector will create double horizontal line at the end of the table
+#' @param cgroup.just justification for the grouped columns: "l", "c", "r".
+#' Adding a "|" on either side of the letter will add a vertical line.
+#' @param col.just Justification for the single columns, see cgroup.just.
+#' @param first.coltype Font type for the first column entries. As if they were
+#' row names.  Default is regular font. See LaTeX documentation for possible
+#' options.
+#' @param caption.loc Location of the caption. Either "bottom" or "top"
+#' @param caption String giving the caption for LaTeX table
+#' @param label Label for the LaTeX table
+#' @param showTab Logical TRUE compiles and displays the LaTeX table.
+#' @param returnTab Logical TRUE prints the LaTeX code created in R session
+#' @return Output is the LaTeX code necessary to produce a LaTeX table in a
+#' document.
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S.
+#' @seealso latex() in library(Hmisc)
+#' @examples
+#' 
+#' 
+#' TRT <- rep(c("A","B"), 3)
+#' Time <- c("Baseline","","Week 5","","Week 10","")
+#' col1 <- c(20,20,30,20,40,23)
+#' col3 <- c(22,20,17,18,17,18)
+#' col5 <- c(24,20,19,22,9,19)
+#' nA <- 66
+#' nB <- 60
+#' col2 <-
+#' round(c(col1[1]/nA,col1[2]/nB,col1[3]/nA,col1[4]/nB,col1[5]/nA,col1[6]/nB),3) 
+#' col4 <-
+#' round(c(col3[1]/nA,col3[2]/nB,col3[3]/nA,col3[4]/nB,col3[5]/nA,col3[6]/nB),3) 
+#' col6 <-
+#' round(c(col5[2]/nA,col5[2]/nB,col5[3]/nA,col5[4]/nB,col5[5]/nA,col5[6]/nB),3) 
+#' 
+#' mat <-
+#' cbind(Time,TRT,"N"=col1,"Pct"=col2,"N"=col3,"Pct"=col4,"N"=col5,"Pct"=col6) 
+#' 
+#' uwLatex(mat=mat,
+#'         file=NULL,
+#'         transpose=FALSE,
+#'         where="h",
+#'         justify="center",
+#'         size="normalsize",
+#'         cgroup.type="bfseries",
+#'         cgroup=c("","","High","Medium","Low"),
+#'         n.cgroup=c(1,1,2,2,2),
+#'         rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
+#'         cgroup.just=c("|c","c|","c","c","c|"),
+#'         col.just=c("|l","l|",rep("c",5),"c|"),
+#'         first.coltype="mdseries",
+#'         caption.loc="bottom",
+#'         caption="Example of uwLatex function",
+#'         label=NULL,
+#'         showTab=TRUE)
+#' 
+#' # with transpose
+#' 
+#' uwLatex(mat=mat,
+#'         file=NULL,
+#'         transpose=TRUE,
+#'         where="h",
+#'         justify="center",
+#'         size="normalsize",
+#'         cgroup.type="bfseries",
+#'         cgroup=c("","","High","Medium","Low"),
+#'         n.cgroup=c(1,1,2,2,2),
+#'         rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
+#'         cgroup.just="c",
+#'         col.just=c(rep("c",8)),
+#'         first.coltype="mdseries",
+#'         caption.loc="bottom",
+#'         caption="Example of uwLatex function",
+#'         label=NULL,
+#'         showTab=FALSE)
+#' 
 uwLatex <- function(mat,
                     file=NULL,
                     type=c("normal","multicol","landscape","longtable"),

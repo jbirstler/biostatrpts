@@ -1,5 +1,40 @@
-
-
+#' Box Plot function embedded in other box plot functions
+#' 
+#' Function called by other box plot functions to actually create the box plot.
+#' This allows for a consistent look throughout multiple different functions
+#' 
+#' This function is an adaptation of the traditional boxplot() so that box plot
+#' functions in biostatrpts can be similar
+#' 
+#' uwBox is called by any biostatrpts function that creates box plots.
+#' 
+#' @param data data frame with metricName and trxName as columns
+#' @param trxName column name of treatment factor in data
+#' @param metricName column name of numeric variable in data
+#' @param yLab (boxplot)(string) Y-axis label
+#' @param xLab (boxplot)(string) X-axis label
+#' @param yLim (boxplot)(numeric vector) Y-axis range
+#' @param boxWex (boxplot)(numeric) see boxplot
+#' @param plotMean (logical) if TRUE a dot will be plotted for where the mean
+#' is
+#' @param pOutliers (logical) if TRUE outliers are plotted
+#' @return Returns a list of sample sizes (n), means (mean), standard
+#' deviations (sd), minimums (min), first quartile (q25), medians (median),
+#' third quartile (q75), maximums (max)
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S.
+#' @examples
+#' 
+#' 
+#' TRT <- c(rep("A",20), rep("B",20), rep("C",20))
+#' metric <- c(rnorm(20,2,1), rnorm(20,3,1), rnorm(20,4,1))
+#' 
+#' dat <- data.frame(TRT,metric)
+#' 
+#' uwBox(dat,"TRT","metric")
+#' 
+#' 
+#' 
 uwBox <- function(data,
                   trxName=NULL,
                   metricName,

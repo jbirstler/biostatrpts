@@ -1,5 +1,46 @@
-
-
+#' Correlation Tables
+#' 
+#' This function is meant for creating correlation tables of one variable with
+#' multiple other variables
+#' 
+#' 
+#' @param data The data frame that all the variables are found
+#' @param yvar String of the name in the data frame for the "response" variable
+#' @param xvec Vector of strings giving the names in the data frame for the
+#' other variables to be correlated with yvar
+#' @param factor Vector for a two-level variable that can be used to seperate
+#' the data and have a test for differences in correlations based on Fisher's
+#' Z-transformation
+#' @param colNames Manually put in the names for the columns of the table
+#' produced. If factor is null and printPVals is FALSE ncol=3.  If factor is
+#' null and printPVals is TRUE ncol=4.  If factor is not null and printPVals is
+#' FALSE ncol=7 (printPVals TRUE, ncol=8).
+#' @param printPVals Logical: Is forced to FALSE if no factor is provided
+#' @param method Method to be used in the call of the cor() function
+#' @param LatexFileName File name for the LaTeX table that is created using
+#' uwLatex()
+#' @param returnMat Logical: Do you want the matrix to be printed in R
+#' @param digits Number of decimals to be printed
+#' @param ... Other arguments that can be passed to uwLatex().  cgroup and
+#' n.cgroup is already set
+#' @return Output is the matrix that is created and used by uwLatex().  Code
+#' for the LaTeX table is also written to LatexFileName
+#' @author Scott Hetzel M.S. University of Wisconsin-Madison Biostatistics and
+#' Medical Informatics Department
+#' @seealso uwLatex()
+#' @examples
+#' 
+#' 
+#' weight <- rnorm(100, 200, 10)
+#' height <- rnorm(100, 72, 5)
+#' bmi <- (weight/(height^2))*703
+#' fact <- rep(c("Yes","No"), c(50,50))
+#' 
+#' df <- data.frame(weight, height, bmi, fact)
+#' 
+#' uwCorTab(df, yvar="bmi",xvec=c("weight","height"), factor="fact",
+#'          LatexFileName=paste(getwd(),"/uwCorTab.tex",sep=""))
+#' 
 uwCorTab <- function(data,
                      yvar,
                      xvec,

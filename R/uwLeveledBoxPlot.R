@@ -16,6 +16,198 @@
 # Function uwLeveledBoxPlot#
 ############################
 
+
+
+#' Box plots with Two factor variables
+#' 
+#' This function will produce a graphic and statistical testing for a numeric
+#' variable when stratified by two factor variables.  Generally one of the
+#' factor variables is considered the treatment variable.  Also produced is
+#' code for a corresponding LaTeX table.
+#' 
+#' Special Functions used in uwLeveledBoxPlot: uwPVals and uwLatex
+#' 
+#' Plotting points in the boxes represent the median value.  A line would
+#' represent the mean if plotMean=TRUE.
+#' 
+#' @param allData Data frame in R that contains all of the variables
+#' @param trxName String. Name of the treatment variable in allData
+#' @param metricName String. Name of the numeric variable in allData that will
+#' be represented by boxes
+#' @param lowfactName String. Name of the low-level factor variable in allData
+#' that will be used to stratify. Make the factor an ordered factor if order
+#' matters in the reporting.
+#' @param hifactName String. Name of the upper-level factor variable in allData
+#' that will be used to stratify first, and then stratify on lowfactName.
+#' @param delta Logical.  TRUE looks at differences from baseLevel and other
+#' levels of hifactName or lowfactName is no hifactName is given
+#' @param deltaPct Logical. TRUE gives percentage change from baseLevel. delta
+#' must also be TRUE
+#' @param baseLevel String. Level in hifactName or lowfactName if no hifactName
+#' is given that is considered the baseline level
+#' @param idName String.  Variable in allData that gives patient identifiers.
+#' Only necessary if delta=TRUE
+#' @param LatexFileName String.  Giving the file path and name, ending in .tex,
+#' where the LaTeX code for the table should be saved.  If NULL, table is
+#' printed in the R session but not saved.
+#' @param LatexCaption uwLatex, Caption for Latex table
+#' @param lowfacttableName String to be given to the lowfactName in the LaTeX
+#' table
+#' @param hifacttableName String to be given to the hifactName in the LaTeX
+#' table
+#' @param showTab Logical. TRUE -> Displays the compiled LaTeX table using dvix
+#' @param pTitle String. Title of the Plot and caption of the LaTeX table
+#' @param yLab String. Label for the y-axis.
+#' @param yLim Limits of y-axix. In the form: c(start,finish)
+#' @param plotMean Logical. TRUE -> A line is plotted in the box plots showing
+#' the mean value.  A point is always plotted showing the median value.
+#' @param pOutliers Logical. TRUE -> Show points outside of whiskers
+#' @param lWhisker Lower whisker level. Default is .05 for 5th percentile
+#' @param hWhisker Upper whisker level. Default is .95 for 95th percentile
+#' @param lHinge Lower level of box. Default is .25 for 25th percentile
+#' @param hHinge Upper level of box. Default is .75 for 75th percentile
+#' @param boxWex Number for width of boxes
+#' @param LabelCex Numeric.  Gives magnification level of the labels in the
+#' x-axis. Less than 1 shrinks them, greater than 1 expands them.
+#' @param Legend Logical.  TRUE puts a legend of the trxName levels in the plot
+#' and removes the labeling in the x-axis for trxName levels
+#' @param LegendLoc Location of the legend if Legend=TRUE, see help(legend)
+#' @param LegendCex Numeric.  Gives magnification level of the legend
+#' @param printPVals Logical. TRUE -> Prints p-values on the top of the graph
+#' and adds them to the LaTeX table
+#' @param PVinTableOnly Logical. TRUE Suppresses the printing of p-values in
+#' the top margin of the graph, but they are still printed in the LaTeX table.
+#' Useful when p-values are hard to read in the margin
+#' @param PValCex Numeric.  Gives magnification level of the p-values in the
+#' top margin
+#' @param pTest printPVals must be TRUE. Chose type of comparison test
+#' @param abbrevN Whole number indicating how many letters should abbreviation
+#' of the treatments levels should be.
+#' @param pairwise (logical) TRUE pairwise comparisons should be made between
+#' treatment levels.  FALSE multi-level test occurs between all levels of the
+#' treatment
+#' @param pAdjust NULL for none, "h" for "holm", or "b" for "bonferroni".
+#' P-value adjustment methods.  See uwPVals for more information.
+#' @param trxControl Must be defined if pairwise=TRUE. A treatment level is
+#' indicated here as the control level, two-way comparisons with the control
+#' and non-controls will then be made.
+#' @param pExclude only applies if pairwise=TRUE. This should be a vector of
+#' non-control treatment levels that will be looked at one at a time and that
+#' non-control's contrast will not be reported
+#' @param pInclude List specifying contrasts want to be examined. This is most
+#' useful when wanting to combine treatment levels together.  See uwPVals for
+#' more details
+#' @param Ropen Logical.  TRUE collapses data across all treatment arms.
+#' @param numDec Numeric from 0 to 20 indicating number of decimals to be
+#' reported in the tables
+#' @param ... Any other argument that can be passed to uwLatex other than mat,
+#' file, or col.just which are already set
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department, Scott Hetzel M.S. and Frontier Science and
+#' Technology Research Foundation, Patrick Lenon
+#' @seealso uwBoxPlot(), uwLatex()
+#' @examples
+#' 
+#' 
+#' trt1 <- rep(rep(c("A","B","C"), 120),3)
+#' fctr1 <- as.factor(rep(c(rep("Female",180),rep("Male",180)),3))
+#' mtrc1 <- rnorm(360*3, 10, 4)
+#' upfct <- c(rep("Baseline",360),rep("Week 12",360), rep("Week 24",360))
+#' ids <- as.character(c(1:360,1:360,1:360))
+#' dat1 <- data.frame(trt1,fctr1,mtrc1,upfct,ids)
+#' 
+#' lyt <- layout(matrix(c(1,1,2,2,3,3), nrow=3, byrow=TRUE))
+#' 
+#' uwLeveledBoxPlot(allData=dat1, 
+#' 		trxName="trt1", 
+#' 		metricName="mtrc1", 
+#' 		lowfactName="fctr1",
+#'                 hifactName="upfct",
+#'                 delta=FALSE,
+#'                 baseLevel="Baseline",
+#'                 idName="ids",
+#' 		LatexFileName=NULL,
+#' 		showTab=FALSE,
+#'                 Legend=FALSE,
+#' 		pTitle="Example of uwLeveledBoxPlot",
+#' 		yLab="Random Normal", 
+#' 		plotMean=TRUE, pOutliers=FALSE,
+#'                 lWhisker=.05, hWhisker=.95,
+#' 		lHinge=.25, hHinge=.75,
+#' 		boxWex=0.75,
+#' 		printPVals=TRUE,
+#'                 PVinTableOnly=FALSE,
+#'                 PValCex=0.5,
+#'                 Ropen=FALSE,
+#'                 pTest="t",
+#'                 abbrevN=1,
+#'                 pairwise=TRUE,
+#'                 trxControl=NULL,
+#' 		pExclude=NULL,
+#' 		yLim=NULL)
+#' 
+#' uwLeveledBoxPlot(allData=dat1, 
+#' 		trxName="trt1", 
+#' 		metricName="mtrc1", 
+#' 		lowfactName="fctr1",
+#'                 hifactName="upfct",
+#'                 delta=TRUE,
+#'                 deltaPct=FALSE,
+#'                 baseLevel="Baseline",
+#'                 idName="ids",
+#' 		LatexFileName=NULL,
+#' 		showTab=FALSE,
+#'                 Legend=TRUE,
+#'                 LegendLoc="topleft",
+#' 		pTitle="Example of uwLeveledBoxPlot with delta=TRUE",
+#' 		yLab="Random Normal", 
+#' 		plotMean=FALSE, pOutliers=FALSE,
+#'                 lWhisker=.05, hWhisker=.95,
+#' 		lHinge=.25, hHinge=.75,
+#' 		boxWex=0.75,
+#' 		printPVals=TRUE,
+#'                 PVinTableOnly=FALSE,
+#'                 PValCex=0.5,
+#'                 Ropen=FALSE,
+#'                 pTest="w",
+#'                 abbrevN=1,
+#'                 pairwise=TRUE,
+#'                 trxControl=NULL,
+#' 		pExclude=NULL,
+#'                 pInclude=list(list(c("A","B"),"C"),list("A",c("B","C")),list("A","C")),
+#' 		yLim=NULL)
+#' 
+#' uwLeveledBoxPlot(allData=dat1, 
+#' 		trxName="trt1", 
+#' 		metricName="mtrc1", 
+#' 		lowfactName="fctr1",
+#'                 hifactName="upfct",
+#'                 delta=TRUE,
+#'                 deltaPct=TRUE,
+#'                 baseLevel="Baseline",
+#'                 idName="ids",
+#' 		LatexFileName=NULL,
+#' 		showTab=FALSE,
+#'                 Legend=TRUE,
+#'                 LegendLoc="topleft",
+#' 		pTitle="Example of uwLeveledBoxPlot with deltaPct=TRUE",
+#' 		yLab="Random Normal", 
+#' 		plotMean=FALSE, pOutliers=FALSE,
+#'                 lWhisker=.05, hWhisker=.95,
+#' 		lHinge=.25, hHinge=.75,
+#' 		boxWex=0.75,
+#' 		printPVals=TRUE,
+#'                 PVinTableOnly=FALSE,
+#'                 PValCex=0.5,
+#'                 Ropen=FALSE,
+#'                 pTest="w",
+#'                 abbrevN=1,
+#'                 pairwise=TRUE,
+#'                 trxControl=NULL,
+#' 		pExclude=NULL,
+#'                 pInclude=list(list(c("A","B"),"C"),list("A",c("B","C")),list("A","C")),
+#' 		yLim=NULL)
+#' 
 uwLeveledBoxPlot <- function(allData,
                              trxName,
                              metricName,

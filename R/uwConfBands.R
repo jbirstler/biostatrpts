@@ -1,4 +1,121 @@
-
+#' Confidence Bands for Hazard Ratios, Mean Differences, or Odds Ratios
+#' 
+#' This function is meant the creation of 95\% confidence intervals for subsets
+#' of a data set.  Confidence intervals can be for hazard ratios, mean
+#' differences, or odds ratios.
+#' 
+#' Additional LaTeX Packages Required if LtxTranspose=TRUE:
+#' usepackage{multirow} usepackage{longtable} if type="longtable" Special
+#' functions Required: uwLatex()
+#' 
+#' @param fullData Name of the data frame loaded into R.
+#' @param trxName String of name of treatment factor in fullData
+#' @param trxLevels Vector of strings giving the two levels of trxName to be
+#' used for the figure and table
+#' @param factVarNames Vector of strings giving all of the variable names in
+#' fullData that will be indivdually subsetted on.
+#' @param factFigNames Vector of strings giving all of the names that will be
+#' used in the figure.  Used when factVarNames are not actually how you want
+#' the variables represented in the figure.  There is positional matching
+#' between this and factVarNames
+#' @param estimate String indicating which statistic should be estimated from
+#' the data. "hazard", "mean", or "proportion" first letter is sufficient
+#' @param pTitle String to be used as the Figure's title
+#' @param coxMethod Method for coxph() in handling ties. Defaults to breslow"
+#' @param timeName Only used if estimate="h".  String giving the variable name
+#' that is gives the survival time
+#' @param statusName Used if estimate="h" or estimate="p". String giving the
+#' variable name that indicates whether or not the outcome of interest
+#' occurred. This should be logical or 0's and 1's.
+#' @param metricName Only used if estimate="m".  String giving the variable
+#' name that the differences in means between treatment levels should be
+#' calculated for.
+#' @param printPVals (logical) TRUE to have p-values printed
+#' @param interactPVals (logical) TRUE reports interaction p-values, FALSE is
+#' regular treatment comparison p-values
+#' @param xLim Specifies the limits of the x-axis.  If null, each method based
+#' on estimate has it's own default
+#' @param xLog Only used if estimate="h".  Logic for type of x-axis to be
+#' printed. TRUE = log scale x-axis.  FALSE = unit scale x-axis.
+#' @param xDetailed Only used if estimate="h".  Logic for type of x-axis
+#' printed. TRUE has multiple default tick locations.  FALSE has default
+#' locations based on axis(1)
+#' @param leftMarWidth Sets the width of the left margin where the subset
+#' indications will be printed
+#' @param lineWidth Sets the width of the lines used for the confidence bands
+#' @param pointSize The cex for the square box representing the point estimates
+#' @param LatexFileName A vector of strings giving the folder and file(ending
+#' in .tex) for the LaTeX table to be saved.  The default is NULL, which will
+#' not save the table only print the matrix.
+#' @param ... Any other arguement that can be passed to uwLatex()
+#' @return Output is a figure and a LaTeX table. If LatexFileName is null, the
+#' matrix of data is printed
+#' @author University of Wisconsin-Madison Biostatistics and Medical
+#' Informatics Department and Frontier Science, Scott Hetzel M.S.
+#' @seealso uwLatex()
+#' @examples
+#' 
+#' 
+#' data(colon) # from library(survival)
+#' colon$sex.f <- factor(colon$sex,levels=c(0,1),labels=c("Female","Male"))
+#' colon$surg.f <- factor(colon$surg, levels=c(0,1),
+#' labels=c("Short","Long"))
+#' colon$differ.f <- factor(colon$differ, levels=c(1,2,3),
+#' labels=c("Well","Moderate","Poor"))
+#' 
+#' 
+#' 
+#' uwConfBands(fullDat=colon,
+#'             trxName="rx",
+#'             trxLevels=c("Obs","Lev"),
+#'             factVarNames=c("sex.f","age","surg.f","differ.f"),
+#'             factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+#'             estimate="m",
+#'             metricName="nodes",
+#'             printPVals=FALSE,
+#'             LatexFileName=NULL)
+#' 
+#' 
+#' uwConfBands(fullDat=colon,
+#'             trxName="rx",
+#'             trxLevels=c("Obs","Lev"),
+#'             factVarNames=c("sex.f","age","surg.f","differ.f"),
+#'             factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+#'             estimate="p",
+#'             statusName="status",
+#'             printPVals=TRUE,
+#'             LatexFileName=NULL)
+#' 
+#' layout(matrix(c(1,1,1,1,2,2,2,2),nrow=2,byrow=TRUE))
+#' uwConfBands(fullDat=colon,
+#'             trxName="rx",
+#'             trxLevels=c("Obs","Lev"),
+#'             factVarNames=c("sex.f","age","surg.f","differ.f"),
+#'             factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+#'             estimate="h",
+#'             statusName="status",
+#'             timeName="time",
+#'             xLim=c(0.25,5),
+#'             xLog=TRUE,
+#'             printPVals=TRUE,
+#'             interactPVals=TRUE,
+#'             LatexFileName=NULL)
+#' 
+#' uwConfBands(fullDat=colon,
+#'             trxName="rx",
+#'             trxLevels=c("Obs","Lev"),
+#'             factVarNames=c("sex.f","age","surg.f","differ.f"),
+#'             factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
+#'             estimate="h",
+#'             statusName="status",
+#'             timeName="time",
+#'             xLim=c(0,2),
+#'             xLog=FALSE,
+#'             xDetailed=FALSE,
+#'             printPVals=TRUE,
+#'             interactPVals=TRUE,
+#'             LatexFileName=NULL)
+#' 
 uwConfBands <- function(fullData,
                         trxName,
                         trxLevels,
