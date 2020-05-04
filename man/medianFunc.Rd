@@ -34,10 +34,10 @@ na.rm=TRUE is defaulted in the calculation of median and IQR or min and max
 \examples{
 
 outcome <- rnorm(20)
-group <- factor(rep(c("A","B"),each=10))
+group <- factor(rep(c('A','B'),each=10))
 d.frame <- data.frame(outcome,group)
 
-medianFunc(d.frame,"outcome","group",IQR=FALSE)
+medianFunc(d.frame,'outcome','group',IQR=FALSE)
 
 }
 \seealso{

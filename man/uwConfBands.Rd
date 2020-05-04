@@ -45,20 +45,20 @@ the variables represented in the figure.  There is positional matching
 between this and factVarNames}
 
 \item{estimate}{String indicating which statistic should be estimated from
-the data. "hazard", "mean", or "proportion" first letter is sufficient}
+the data. 'hazard', 'mean', or 'proportion' first letter is sufficient}
 
 \item{pTitle}{String to be used as the Figure's title}
 
-\item{coxMethod}{Method for coxph() in handling ties. Defaults to breslow"}
+\item{coxMethod}{Method for coxph() in handling ties. Defaults to breslow'}
 
-\item{timeName}{Only used if estimate="h".  String giving the variable name
+\item{timeName}{Only used if estimate='h'.  String giving the variable name
 that is gives the survival time}
 
-\item{statusName}{Used if estimate="h" or estimate="p". String giving the
+\item{statusName}{Used if estimate='h' or estimate='p'. String giving the
 variable name that indicates whether or not the outcome of interest
 occurred. This should be logical or 0's and 1's.}
 
-\item{metricName}{Only used if estimate="m".  String giving the variable
+\item{metricName}{Only used if estimate='m'.  String giving the variable
 name that the differences in means between treatment levels should be
 calculated for.}
 
@@ -70,10 +70,10 @@ regular treatment comparison p-values}
 \item{xLim}{Specifies the limits of the x-axis.  If null, each method based
 on estimate has it's own default}
 
-\item{xLog}{Only used if estimate="h".  Logic for type of x-axis to be
+\item{xLog}{Only used if estimate='h'.  Logic for type of x-axis to be
 printed. TRUE = log scale x-axis.  FALSE = unit scale x-axis.}
 
-\item{xDetailed}{Only used if estimate="h".  Logic for type of x-axis
+\item{xDetailed}{Only used if estimate='h'.  Logic for type of x-axis
 printed. TRUE has multiple default tick locations.  FALSE has default
 locations based on axis(1)}
 
@@ -101,51 +101,51 @@ differences, or odds ratios.
 }
 \details{
 Additional LaTeX Packages Required if LtxTranspose=TRUE:
-usepackage{multirow} usepackage{longtable} if type="longtable" Special
+usepackage{multirow} usepackage{longtable} if type='longtable' Special
 functions Required: uwLatex()
 }
 \examples{
 
 
 data(colon) # from library(survival)
-colon$sex.f <- factor(colon$sex,levels=c(0,1),labels=c("Female","Male"))
+colon$sex.f <- factor(colon$sex,levels=c(0,1),labels=c('Female','Male'))
 colon$surg.f <- factor(colon$surg, levels=c(0,1),
-labels=c("Short","Long"))
+labels=c('Short','Long'))
 colon$differ.f <- factor(colon$differ, levels=c(1,2,3),
-labels=c("Well","Moderate","Poor"))
+labels=c('Well','Moderate','Poor'))
 
 
 
 uwConfBands(fullDat=colon,
-            trxName="rx",
-            trxLevels=c("Obs","Lev"),
-            factVarNames=c("sex.f","age","surg.f","differ.f"),
-            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
-            estimate="m",
-            metricName="nodes",
+            trxName='rx',
+            trxLevels=c('Obs','Lev'),
+            factVarNames=c('sex.f','age','surg.f','differ.f'),
+            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
+            estimate='m',
+            metricName='nodes',
             printPVals=FALSE,
             LatexFileName=NULL)
 
 
 uwConfBands(fullDat=colon,
-            trxName="rx",
-            trxLevels=c("Obs","Lev"),
-            factVarNames=c("sex.f","age","surg.f","differ.f"),
-            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
-            estimate="p",
-            statusName="status",
+            trxName='rx',
+            trxLevels=c('Obs','Lev'),
+            factVarNames=c('sex.f','age','surg.f','differ.f'),
+            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
+            estimate='p',
+            statusName='status',
             printPVals=TRUE,
             LatexFileName=NULL)
 
 layout(matrix(c(1,1,1,1,2,2,2,2),nrow=2,byrow=TRUE))
 uwConfBands(fullDat=colon,
-            trxName="rx",
-            trxLevels=c("Obs","Lev"),
-            factVarNames=c("sex.f","age","surg.f","differ.f"),
-            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
-            estimate="h",
-            statusName="status",
-            timeName="time",
+            trxName='rx',
+            trxLevels=c('Obs','Lev'),
+            factVarNames=c('sex.f','age','surg.f','differ.f'),
+            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
+            estimate='h',
+            statusName='status',
+            timeName='time',
             xLim=c(0.25,5),
             xLog=TRUE,
             printPVals=TRUE,
@@ -153,13 +153,13 @@ uwConfBands(fullDat=colon,
             LatexFileName=NULL)
 
 uwConfBands(fullDat=colon,
-            trxName="rx",
-            trxLevels=c("Obs","Lev"),
-            factVarNames=c("sex.f","age","surg.f","differ.f"),
-            factFigNames=c("Gender","Age","Time to Reg.","Tumor Diff."),
-            estimate="h",
-            statusName="status",
-            timeName="time",
+            trxName='rx',
+            trxLevels=c('Obs','Lev'),
+            factVarNames=c('sex.f','age','surg.f','differ.f'),
+            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
+            estimate='h',
+            statusName='status',
+            timeName='time',
             xLim=c(0,2),
             xLog=FALSE,
             xDetailed=FALSE,

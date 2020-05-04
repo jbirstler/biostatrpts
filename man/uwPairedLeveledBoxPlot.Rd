@@ -51,9 +51,9 @@ in .tex) for the LaTeX tables to be saved.}
 \item{yLab}{String of the y-axis label of the plot of the individual box
 plots.}
 
-\item{pTest}{String. "w" gives Wilcoxon Signed Rank p-values on the vector
-of paired differences for each level of factorName. "t" gives Student's
-T-test p-values.  Defaults to "w"}
+\item{pTest}{String. 'w' gives Wilcoxon Signed Rank p-values on the vector
+of paired differences for each level of factorName. 't' gives Student's
+T-test p-values.  Defaults to 'w'}
 
 \item{plotMean}{Logical. TRUE -> Gives a line in the box plot that shows
 where the mean is.}
@@ -92,24 +92,24 @@ in uwPairedLevelBoxPlot
 Function matches ptID readings for pre (first level of pairName) to
 corresponding post (second level of pairName) reading.  A Wilcoxon Signed
 Rank Test for paired data is conducted on the matched pairs and that p-value
-is reported, or Paired T-test if pTest="t".  The difference box is shown as
+is reported, or Paired T-test if pTest='t'.  The difference box is shown as
 post-pre.
 }
 \examples{
 
 
-trt <- rep(c("Case","Control"), 60)
+trt <- rep(c('Case','Control'), 60)
 id <- rep(rep(1:20, rep(2, 20)),3)
-fact <- rep(c("A","B","C"), c(40,40,40))
+fact <- rep(c('A','B','C'), c(40,40,40))
 met <- c(rnorm(40,10),rnorm(40,11),rnorm(40,12))
 
 df <- data.frame(trt, id, fact, met)
 
-uwPairedLeveledBoxPlot(pairData=df, pairName="trt", metricName="met",
-                       factorName="fact", ptID="id",
+uwPairedLeveledBoxPlot(pairData=df, pairName='trt', metricName='met',
+                       factorName='fact', ptID='id',
                        LatexFileName=NULL,
-                       yLab="Normal", pTest="w",
-                       pTitle="Example of uwPairedLeveledBoxPlot",
+                       yLab='Normal', pTest='w',
+                       pTitle='Example of uwPairedLeveledBoxPlot',
                        plotMean=TRUE, pOutliers=FALSE,
                        lWhisker=.05, hWhisker=.95,
                        rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE),

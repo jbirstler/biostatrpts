@@ -128,7 +128,7 @@ is reported. The difference box is shown as post-pre.
 \examples{
 
 
-Time <- ordered(c(rep("Pre", 100), rep("Post", 100)), c("Pre","Post"))
+Time <- ordered(c(rep('Pre', 100), rep('Post', 100)), c('Pre','Post'))
 ID <- rep(sample(c(1:100),100,replace=FALSE),2) #IDs will not be in order
 weight <- c(rnorm(100,200,3), rnorm(100,197,3)) #pretend they are paired
 
@@ -140,16 +140,16 @@ dat <- data.frame(Time, ID, weight)
 
 # onlyPairs=T, plotDiff=T
 uwPairedBoxPlot(allData=dat,
-                pairName="Time",
-                metricName="weight",
-                ptID="ID",
+                pairName='Time',
+                metricName='weight',
+                ptID='ID',
                 onlyPairs=TRUE,
                 plotDiff=TRUE,
                 chgLayout=TRUE,
                 pWilcox=TRUE,
                 LatexFileName=NULL,
-                pTitle="uwPairedBoxPlot Example",
-                yLab="Weight (lbs.)",
+                pTitle='uwPairedBoxPlot Example',
+                yLab='Weight (lbs.)',
                 plotMean=FALSE, pOutliers=FALSE,
                 lWhisker=.05, hWhisker=.95,
                 lHinge=.25, hHinge=.75,
@@ -159,22 +159,22 @@ uwPairedBoxPlot(allData=dat,
                 footNote=NULL,
                 firstCol.name=NULL,
                 LatexCaption=NULL,
-                caption.loc="bottom",
+                caption.loc='bottom',
                 showTab=FALSE,
                 label=NULL)
 
 # onlyPairs=F, plotDiff=T
 uwPairedBoxPlot(allData=dat,
-                pairName="Time",
-                metricName="weight",
-                ptID="ID",
+                pairName='Time',
+                metricName='weight',
+                ptID='ID',
                 onlyPairs=FALSE,
                 plotDiff=TRUE,
                 chgLayout=TRUE,
                 pWilcox=TRUE,
                 LatexFileName=NULL,
-                pTitle="uwPairedBoxPlot Example",
-                yLab="Weight (lbs.)",
+                pTitle='uwPairedBoxPlot Example',
+                yLab='Weight (lbs.)',
                 plotMean=FALSE, pOutliers=FALSE,
                 lWhisker=.05, hWhisker=.95,
                 lHinge=.25, hHinge=.75,
@@ -184,7 +184,7 @@ uwPairedBoxPlot(allData=dat,
                 footNote=NULL,
                 firstCol.name=NULL,
                 LatexCaption=NULL,
-                caption.loc="bottom",
+                caption.loc='bottom',
                 showTab=FALSE,
                 label=NULL)
 

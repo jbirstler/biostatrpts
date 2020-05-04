@@ -33,20 +33,20 @@ uwLatex(
 table. If the matrix has rownames they will be ignored. However, the first
 column of the matrix can be considered the row names of the table.  If there
 is ever a gap or a blank field meant to be in the table, an empty string,
-i.e. "", should be in the matrix at the desired spot.}
+i.e. '', should be in the matrix at the desired spot.}
 
 \item{file}{A string giving the folder and file(ending in .tex) for the
 LaTeX table to be saved.  The default is NULL, which will create the table
 in the current directory of the R session, and will have the file name of
 the label.tex, if label is NULL, then it will be (name of the matrix).tex}
 
-\item{type}{One of c("normal","multicol","landscape","longtable"). Default
-is "normal". "normal" creates a normal LaTex table. "multicol" places code
+\item{type}{One of c('normal','multicol','landscape','longtable'). Default
+is 'normal'. 'normal' creates a normal LaTex table. 'multicol' places code
 in the start and end of the begin{table} statement that indicates this table
-will be part of a multicol statement in the main LaTeX code. "landscape"
+will be part of a multicol statement in the main LaTeX code. 'landscape'
 places code in the start and end of the begin{table} statement that
 indicates this table will be printed on a landscape formatted page.
-"longtable" places code in the start and end of the table LaTeX code that
+'longtable' places code in the start and end of the table LaTeX code that
 allows the table to be longer than one page and will create column headings
 for each page and indicate that the table is continued on the next page.}
 
@@ -66,8 +66,8 @@ transposed matrix.}
 tables). All together allows for any of them to happen depending on LaTeX.
 Disregarded if multicol=TRUE}
 
-\item{justify}{Justification of the table: "flushleft", "center", or
-"flushright".}
+\item{justify}{Justification of the table: 'flushleft', 'center', or
+'flushright'.}
 
 \item{size}{Font size of items in table: See LaTeX font size commands for
 options.}
@@ -89,8 +89,8 @@ as the number of rows in mat.  TRUE adds horizontal line after that row in
 the table.  Last row automatically has a line. So TRUE in last spot in
 vector will create double horizontal line at the end of the table}
 
-\item{cgroup.just}{justification for the grouped columns: "l", "c", "r".
-Adding a "|" on either side of the letter will add a vertical line.}
+\item{cgroup.just}{justification for the grouped columns: 'l', 'c', 'r'.
+Adding a '|' on either side of the letter will add a vertical line.}
 
 \item{col.just}{Justification for the single columns, see cgroup.just.}
 
@@ -98,7 +98,7 @@ Adding a "|" on either side of the letter will add a vertical line.}
 row names.  Default is regular font. See LaTeX documentation for possible
 options.}
 
-\item{caption.loc}{Location of the caption. Either "bottom" or "top"}
+\item{caption.loc}{Location of the caption. Either 'bottom' or 'top'}
 
 \item{caption}{String giving the caption for LaTeX table}
 
@@ -116,7 +116,7 @@ document.
 This function is used and embedded in the biostatrpts functions to create
 the LaTeX table that corresponds to the graph created. This was developed as
 an alternative to the latex function in the Hmisc package. It eliminates the
-extra "empty" columns and rows that the latex function created; making it
+extra 'empty' columns and rows that the latex function created; making it
 easier to get vertical lines correctly into the table.
 }
 \details{
@@ -132,8 +132,8 @@ Professor of Statistics at Vanderbilt.
 \examples{
 
 
-TRT <- rep(c("A","B"), 3)
-Time <- c("Baseline","","Week 5","","Week 10","")
+TRT <- rep(c('A','B'), 3)
+Time <- c('Baseline','','Week 5','','Week 10','')
 col1 <- c(20,20,30,20,40,23)
 col3 <- c(22,20,17,18,17,18)
 col5 <- c(24,20,19,22,9,19)
@@ -147,23 +147,23 @@ col6 <-
 round(c(col5[2]/nA,col5[2]/nB,col5[3]/nA,col5[4]/nB,col5[5]/nA,col5[6]/nB),3) 
 
 mat <-
-cbind(Time,TRT,"N"=col1,"Pct"=col2,"N"=col3,"Pct"=col4,"N"=col5,"Pct"=col6) 
+cbind(Time,TRT,'N'=col1,'Pct'=col2,'N'=col3,'Pct'=col4,'N'=col5,'Pct'=col6) 
 
 uwLatex(mat=mat,
         file=NULL,
         transpose=FALSE,
-        where="h",
-        justify="center",
-        size="normalsize",
-        cgroup.type="bfseries",
-        cgroup=c("","","High","Medium","Low"),
+        where='h',
+        justify='center',
+        size='normalsize',
+        cgroup.type='bfseries',
+        cgroup=c('','','High','Medium','Low'),
         n.cgroup=c(1,1,2,2,2),
         rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
-        cgroup.just=c("|c","c|","c","c","c|"),
-        col.just=c("|l","l|",rep("c",5),"c|"),
-        first.coltype="mdseries",
-        caption.loc="bottom",
-        caption="Example of uwLatex function",
+        cgroup.just=c('|c','c|','c','c','c|'),
+        col.just=c('|l','l|',rep('c',5),'c|'),
+        first.coltype='mdseries',
+        caption.loc='bottom',
+        caption='Example of uwLatex function',
         label=NULL,
         showTab=TRUE)
 
@@ -172,18 +172,18 @@ uwLatex(mat=mat,
 uwLatex(mat=mat,
         file=NULL,
         transpose=TRUE,
-        where="h",
-        justify="center",
-        size="normalsize",
-        cgroup.type="bfseries",
-        cgroup=c("","","High","Medium","Low"),
+        where='h',
+        justify='center',
+        size='normalsize',
+        cgroup.type='bfseries',
+        cgroup=c('','','High','Medium','Low'),
         n.cgroup=c(1,1,2,2,2),
         rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
-        cgroup.just="c",
-        col.just=c(rep("c",8)),
-        first.coltype="mdseries",
-        caption.loc="bottom",
-        caption="Example of uwLatex function",
+        cgroup.just='c',
+        col.just=c(rep('c',8)),
+        first.coltype='mdseries',
+        caption.loc='bottom',
+        caption='Example of uwLatex function',
         label=NULL,
         showTab=FALSE)
 

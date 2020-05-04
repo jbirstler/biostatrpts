@@ -62,7 +62,7 @@ Legend=TRUE}
 names for bar names and numeric axis. 1 and 2 are best for reporting}
 
 \item{barNamesSeq}{(interger) Number indicating which bar labels to print.
-This number is given as the "by" attribute to seq().  So every barNameSeq
+This number is given as the 'by' attribute to seq().  So every barNameSeq
 would be printed.  Default is 1, which will print all bar labels.  Helpful
 when bar labels overlap when printing all of them.}
 
@@ -96,11 +96,11 @@ uwBar is called by any biostatrpts function that creates bar plots.
 
 
 mat <- matrix(1:12,nrow=3)
-dimnames(mat) <- list(c("A","B","C"),c("D","E","F","G"))
+dimnames(mat) <- list(c('A','B','C'),c('D','E','F','G'))
 
 uwBar(mat,pBeside=TRUE,pHoriz=FALSE,lined=FALSE,
       axLim=NULL,yLab=NULL,xLab=NULL,printBarVals=TRUE,
-      Legend=TRUE,LegendLoc="topright",LegendCex=0.8,
+      Legend=TRUE,LegendLoc='topright',LegendCex=0.8,
       mgp.y=c(3,1,0),mgp.x=c(3,1,0),cex.names=1,barNamesLas=1,
       barNamesSeq=1,barNamesAngle=0,digits=1)
 

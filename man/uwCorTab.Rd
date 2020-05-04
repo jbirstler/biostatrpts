@@ -21,7 +21,7 @@ uwCorTab(
 \arguments{
 \item{data}{The data frame that all the variables are found}
 
-\item{yvar}{String of the name in the data frame for the "response" variable}
+\item{yvar}{String of the name in the data frame for the 'response' variable}
 
 \item{xvec}{Vector of strings giving the names in the data frame for the
 other variables to be correlated with yvar}
@@ -63,12 +63,12 @@ multiple other variables
 weight <- rnorm(100, 200, 10)
 height <- rnorm(100, 72, 5)
 bmi <- (weight/(height^2))*703
-fact <- rep(c("Yes","No"), c(50,50))
+fact <- rep(c('Yes','No'), c(50,50))
 
 df <- data.frame(weight, height, bmi, fact)
 
-uwCorTab(df, yvar="bmi",xvec=c("weight","height"), factor="fact",
-         LatexFileName=paste(getwd(),"/uwCorTab.tex",sep=""))
+uwCorTab(df, yvar='bmi',xvec=c('weight','height'), factor='fact',
+         LatexFileName=paste(getwd(),'/uwCorTab.tex',sep=''))
 
 }
 \seealso{

@@ -52,7 +52,7 @@ measurements), and the patients' survival days.}
 \item{timeName}{String of the name for the time variable in survData}
 
 \item{fun}{String as the function utilized for plot.survfit.  Only tested
-for default and "event"}
+for default and 'event'}
 
 \item{color}{Color designations.  Must be equal to nlevels of trxName}
 
@@ -70,8 +70,8 @@ curves}
 
 \item{Legend}{(Logical) TRUE plots legend in spot given in LegendLoc}
 
-\item{LegendLoc}{String of c("topright","top","topleft","left",
-"center","right","bottomright","bottom","bottomleft")}
+\item{LegendLoc}{String of c('topright','top','topleft','left',
+'center','right','bottomright','bottom','bottomleft')}
 
 \item{LegendCex}{Numeric magnification of the legend size}
 
@@ -125,7 +125,7 @@ Charts survival by treatment
 Additional packages required: library(chron)
 
 If LaTeX table does not seem to print fully in the document try using
-type="longtable" argument.
+type='longtable' argument.
 
 Only works well with layout(1)
 }
@@ -133,22 +133,22 @@ Only works well with layout(1)
 
 
 death <- sample(c(0,1), 200, replace=TRUE, prob=c(0.4, 0.6))
-trt <- rep(c("ABDC","ABGH"), c(100,100))
+trt <- rep(c('ABDC','ABGH'), c(100,100))
 time <- ceiling(runif(200, 0, 100))
 
 sData <- data.frame(death,trt,time)
 layout(1)
-uwSurvival(survData=sData, statusName="death", trxName="trt", trxControl="ABDC",                  
-           timeName="time", pTitle="Survival by Treatment",
-           yLab="Percent of Survival Probability",
-           xLab="Days from Randomization",pValCex=0.8,SScex=0.7,
-           markCensor=FALSE, Legend=TRUE, LegendLoc="topright",   
-           LatexFileName=c(paste(getwd(),"surv1.tex",sep=''),
-                           paste(getwd(),"/surv2.tex",sep='')),
+uwSurvival(survData=sData, statusName='death', trxName='trt', trxControl='ABDC',                  
+           timeName='time', pTitle='Survival by Treatment',
+           yLab='Percent of Survival Probability',
+           xLab='Days from Randomization',pValCex=0.8,SScex=0.7,
+           markCensor=FALSE, Legend=TRUE, LegendLoc='topright',   
+           LatexFileName=c(paste(getwd(),'surv1.tex',sep=''),
+                           paste(getwd(),'/surv2.tex',sep='')),
            showTab=FALSE,printPVals=TRUE,printSS=TRUE,
            Ropen=FALSE,GraphSSfreq=5,TableSSfreq=1,firstCol.name=NULL,
            LatexCaption=NULL,SSinPlot=TRUE,
-           size="scriptsize")
+           size='scriptsize')
 
 
 }

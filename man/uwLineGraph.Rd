@@ -60,9 +60,9 @@ c(19,21,23,24,25,7,8,17,0,15)[1:nlevels(trxName)]}
 
 \item{colScale}{(logic or vector) Default is FALSE which plots the lines and
 points on a gray scale.  TRUE plots the lines and points on a color scale
-like so: c("black","red","blue","forestgreen",
-"gold2","violet","brown","chartreuse","lightgreen",
-"magenta")[1:nlevels(trxName)], or you can put in your own set of colors;
+like so: c('black','red','blue','forestgreen',
+'gold2','violet','brown','chartreuse','lightgreen',
+'magenta')[1:nlevels(trxName)], or you can put in your own set of colors;
 length should match nlevels of trxName}
 
 \item{yLim}{Limits of y axis, default makes sure there is a tick mark above
@@ -134,7 +134,7 @@ points
 \examples{
 
 
-TRT <- rep(rep(c("A","B","C"), c(20,20,20)), 4)
+TRT <- rep(rep(c('A','B','C'), c(20,20,20)), 4)
 
 ptID <- rep(1:60, 4)
 ptID <- factor(ptID)
@@ -143,39 +143,39 @@ numVar <- c(rnorm(20,0,1),rnorm(20,1,1),rnorm(20,2,1),rnorm(20,3,1),
             rnorm(20,3,1),rnorm(20,10,1),rnorm(20,2,3),rnorm(20,0,1),
             rnorm(20,6,1),rnorm(20,1,3),rnorm(20,2,5),rnorm(20,3,1))
 
-timeVar <- rep(c("Baseline","3 Months","6 Months", "12 Months"),c(60,60,60,60))
+timeVar <- rep(c('Baseline','3 Months','6 Months', '12 Months'),c(60,60,60,60))
 timeVar <- ordered(timeVar,
-                   c("Baseline","3 Months","6 Months", "12 Months"))
+                   c('Baseline','3 Months','6 Months', '12 Months'))
 
 df <- data.frame(TRT, ptID, numVar, timeVar)
 
 
 uwLineGraph(data=df,
-            metricName="numVar",
-            trxName="TRT",
-            factorName="timeVar",
+            metricName='numVar',
+            trxName='TRT',
+            factorName='timeVar',
             LatexFileName=NULL,
             plotMean=TRUE,
             pch=NULL,
             colScale=TRUE,
             yLim=NULL,
-            yLab="",
-            xLab="",
-            pTitle="Example of uwLineGraph",
+            yLab='',
+            xLab='',
+            pTitle='Example of uwLineGraph',
             refLines=TRUE,
             Legend=TRUE,
-            LegendLoc="topright",
+            LegendLoc='topright',
             printPVals=TRUE,
-            pTest="t",
+            pTest='t',
             pExclude=NULL,
-            trxControl="A",
+            trxControl='A',
             pairDiffTab=TRUE,
-            ptIDname="ptID",
-            BaseLevel="Baseline",
+            ptIDname='ptID',
+            BaseLevel='Baseline',
             numDec=2,
             rowLines=list(c(FALSE),c(FALSE)),
             caption=list(c(NULL),c(NULL)),
-            firstCol.name="Time",
+            firstCol.name='Time',
             Ropen=FALSE)
 
 }

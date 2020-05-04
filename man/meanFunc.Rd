@@ -30,10 +30,10 @@ na.rm=TRUE is defaulted in the calculation of mean and SD
 \examples{
 
 outcome <- rnorm(20)
-group <- factor(rep(c("A","B"),each=10))
+group <- factor(rep(c('A','B'),each=10))
 d.frame <- data.frame(outcome,group)
 
-meanFunc(d.frame,"outcome","group")
+meanFunc(d.frame,'outcome','group')
 
 }
 \seealso{

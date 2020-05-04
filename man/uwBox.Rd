@@ -54,12 +54,12 @@ uwBox is called by any biostatrpts function that creates box plots.
 \examples{
 
 
-TRT <- c(rep("A",20), rep("B",20), rep("C",20))
+TRT <- c(rep('A',20), rep('B',20), rep('C',20))
 metric <- c(rnorm(20,2,1), rnorm(20,3,1), rnorm(20,4,1))
 
 dat <- data.frame(TRT,metric)
 
-uwBox(dat,"TRT","metric")
+uwBox(dat,'TRT','metric')
 
 
 

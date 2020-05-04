@@ -54,22 +54,22 @@ utilized in uwLeveledBoxPlot.
 }
 \examples{
 
-## Example
+# Example
 
 ID <- rep(letters[1:20], 3)
-TRT <- rep(c("A","B"), 30)
-Time <- c(rep("Baseline",20),rep("Week 5",20),rep("Week 10",20))
-Time <- ordered(Time, c("Baseline", "Week 5", "Week 10"))
+TRT <- rep(c('A','B'), 30)
+Time <- c(rep('Baseline',20),rep('Week 5',20),rep('Week 10',20))
+Time <- ordered(Time, c('Baseline', 'Week 5', 'Week 10'))
 AE <- sample(c(1,2,3,4),60,replace=TRUE)
   
 data2 <- data.frame(ID,TRT,Time,AE)
 
 uwDiff(data=data2,
-       varvec="AE",
-       trxName="TRT",
-       VisitName="Time",
-       Baseline="Baseline",
-       ptID="ID",
+       varvec='AE',
+       trxName='TRT',
+       VisitName='Time',
+       Baseline='Baseline',
+       ptID='ID',
        deltaPct=TRUE,
        digits=1)
 

@@ -63,7 +63,7 @@ where the mean is.}
 
 \item{printPVals}{Logical. Do you want P-values to be reported?}
 
-\item{pTest}{uwPVals(), "wilcox" or "t.test", which test do you want to use?
+\item{pTest}{uwPVals(), 'wilcox' or 't.test', which test do you want to use?
 Wilcoxon Rank Sum Test or Student's T-test? First letter only is sufficient.}
 
 \item{abbrevN}{uwPVals(), Whole number indicating how many letters should
@@ -73,7 +73,7 @@ abbreviation of the treatments levels should be.}
 made between treatment levels.  FALSE multi-level test occurs between all
 levels of the treatment}
 
-\item{pAdjust}{NULL for none, "h" for "holm", or "b" for "bonferroni".
+\item{pAdjust}{NULL for none, 'h' for 'holm', or 'b' for 'bonferroni'.
 P-value adjustment methods.  See uwPVals for more information.}
 
 \item{trxControl}{uwPVals(), only applies if pairwise=TRUE.  If NULL, all
@@ -86,7 +86,7 @@ NULL. If trxControl is NULL then this should be a vector of treatment
 levels, looked at two at a time, that indicate that the p-value for that
 contrast should not be reported.  Suppose the treatment levels are A,B,C,D
 and you do not want the comparisons for B.C., B.D., and C.D..  pExclude
-should look like this.  pExclude=c("B","C","B","D","C","D"). If trxControl
+should look like this.  pExclude=c('B','C','B','D','C','D'). If trxControl
 is defined then this should be a vector of non-control treatment levels that
 will be looked at one at a time and that non-control's contrast will not be
 reported}
@@ -134,34 +134,34 @@ P-values do not have multiple comparison adjustments
 \examples{
 
 
-TRT <- c(rep("A",20), rep("B",20), rep("C",20))
+TRT <- c(rep('A',20), rep('B',20), rep('C',20))
 metric <- c(rnorm(20,2,1), rnorm(20,3,1), rnorm(20,4,1))
 
 dat <- data.frame(TRT,metric)
 
 uwBoxPlot(data=dat,
-             trxName="TRT", 
-             metricName="metric",
+             trxName='TRT', 
+             metricName='metric',
              LatexFileName=NULL,
              showTab=FALSE,
-             pTitle="Example of uwBoxPlot",
-             yLab="Weight of Something (oz)", 
+             pTitle='Example of uwBoxPlot',
+             yLab='Weight of Something (oz)', 
              plotMean=FALSE, pOutliers=FALSE,
              boxWex=0.75,
              Ropen=FALSE,
              printPVals=TRUE,
-             pTest="t",
+             pTest='t',
              abbrevN=1,
              pairwise=TRUE,
              trxControl=NULL,
              pExclude=NULL,
-             pInclude=list(list(c("A","B"),"C"), list("B","C"),
-                      list("A","C")),
+             pInclude=list(list(c('A','B'),'C'), list('B','C'),
+                      list('A','C')),
              yLim=NULL,
              pStrWrap=FALSE,
              pValCex=0.7,
              LatexCaption=NULL,
-             col.just=c("|l|",rep("c",10),"|r","r|"),
+             col.just=c('|l|',rep('c',10),'|r','r|'),
              firstCol.name=NULL
             ) 
 

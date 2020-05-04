@@ -23,17 +23,17 @@ exact test
 Meant to be used in creating R matrix to be exported as a table
 }
 \details{
-If the p-value is less than 0.0005 then "< 0.001" is returned otherwise
+If the p-value is less than 0.0005 then '< 0.001' is returned otherwise
 p-value rounded to 3 decimals is returned
 }
 \examples{
 
 set.seed(784)
-outcome <- factor(sample(c("No","Yes"),replace=TRUE,size=20))
-group <- factor(rep(c("A","B"),each=10))
+outcome <- factor(sample(c('No','Yes'),replace=TRUE,size=20))
+group <- factor(rep(c('A','B'),each=10))
 d.frame <- data.frame(outcome,group)
 
-chisqFunc(d.frame,"outcome","group",fisher=TRUE)
+chisqFunc(d.frame,'outcome','group',fisher=TRUE)
 
 }
 \seealso{

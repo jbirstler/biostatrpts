@@ -1,11 +1,11 @@
 #' Create Tex code to input LaTeX tables
-#' 
+#'
 #' This function is meant to be used in a .Rnw Sweave document to create the
 #' LaTeX code input{...} necessary to place tables in the final document.
 #' Arguments in R chunk in the .Rnw file must be results=tex and include=FALSE
-#' 
+#'
 #' Meant to be implemented in the compiling of a .Rnw file by Sweave() command.
-#' 
+#'
 #' @param texName Vector of strings indicating the name of the .tex file that
 #' holds the LaTeX code for creating the table
 #' @param clearpage Logical: TRUE indicates clearpage will be added to the
@@ -21,13 +21,14 @@
 #' @author University of Wisconsin-Madison Biostatistics and Medical
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso Sweave()
+#' @export
 #' @examples
-#' 
+#'
 #' # Not Run
 #' #
 #' # First calling a R chunck in Sweave language
 #' #    <<tex, results=tex, include=FALSE>>=
-#' #     inputTex(c("Age","Sex","Weight","Height"))
+#' #     inputTex(c('Age','Sex','Weight','Height'))
 #' #    @
 #' #
 #' # Must have Age.tex, Sex.tex, Weight.tex and Height.tex in the
@@ -40,43 +41,31 @@
 #' # \input{Weight.tex}
 #' # \input{Height.tex}
 #' # \clearpage
-#' 
-inputTex <- function(texName,
-                     clearpage=TRUE,
-                     multicols=FALSE,
-                     numCols=2)
-  {
-    #set commonly used strings to variable names
-    sl <- paste("\\")
-    clpage <- paste(sl,"clearpage",sep="")
-    tx <- "tex"
-    #set defaults
-    
-    start <- paste("\\input",sep='')
-    
-    #create code
-   
-    if(!multicols)
-      {
-        for(i in 1:length(texName))
-          {
-            cat(paste(start,"{",texName[i],".tex} ",sep=""),sep="\n")
-          }
-      }
-    else
-      {
-        begin <- paste(sl,"begin{multicols}",sep="")
-        cat(paste(begin,"{",numCols,"}",sep=""), sep="\n")
+inputTex <- function(texName, clearpage = TRUE, multicols = FALSE, numCols = 2) {
+  # set commonly used strings to variable names
+  sl <- paste("\\")
+  clpage <- paste(sl, "clearpage", sep = "")
+  tx <- "tex"
+  # set defaults
 
-        for(i in 1:length(texName))
-          {
-           cat(paste(start,"{",texName[i],"}",sep=""),sep="\n")
-         }
-        cat(paste(sl,"end{multicols}",sep=""),sep="\n")
-      }
-    if(clearpage)
-          {
-            cat(clpage,sep="\n")
-          }
+  start <- paste("\\input", sep = "")
+
+  # create code
+
+  if (!multicols) {
+    for (i in 1:length(texName)) {
+      cat(paste(start, "{", texName[i], ".tex} ", sep = ""), sep = "\n")
+    }
+  } else {
+    begin <- paste(sl, "begin{multicols}", sep = "")
+    cat(paste(begin, "{", numCols, "}", sep = ""), sep = "\n")
+
+    for (i in 1:length(texName)) {
+      cat(paste(start, "{", texName[i], "}", sep = ""), sep = "\n")
+    }
+    cat(paste(sl, "end{multicols}", sep = ""), sep = "\n")
   }
-
+  if (clearpage) {
+    cat(clpage, sep = "\n")
+  }
+}

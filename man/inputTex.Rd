@@ -39,7 +39,7 @@ Meant to be implemented in the compiling of a .Rnw file by Sweave() command.
 #
 # First calling a R chunck in Sweave language
 #    <<tex, results=tex, include=FALSE>>=
-#     inputTex(c("Age","Sex","Weight","Height"))
+#     inputTex(c('Age','Sex','Weight','Height'))
 #    @
 #
 # Must have Age.tex, Sex.tex, Weight.tex and Height.tex in the

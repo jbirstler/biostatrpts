@@ -52,9 +52,9 @@ the fitted simple linear regression line.
   dfLin <- data.frame(Xvar,Yvar)
  
   layout(1)
-  uwSimpleReg(Data=dfLin,respVar="Yvar",depVar="Xvar",
-              main="Example of uwSimpleReg",
-              ylab="Example Response", xlab="Example Explanatory",
+  uwSimpleReg(Data=dfLin,respVar='Yvar',depVar='Xvar',
+              main='Example of uwSimpleReg',
+              ylab='Example Response', xlab='Example Explanatory',
               ylim=NULL,xlim=NULL, printPVal=TRUE,printModel=TRUE,printRsq=TRUE)
 
 }

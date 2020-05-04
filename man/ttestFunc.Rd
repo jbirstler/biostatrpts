@@ -21,16 +21,16 @@ more than 2 levels
 Meant to be used in creating R matrix to be exported as a table
 }
 \details{
-If the p-value is less than 0.0005 then "< 0.001" is returned otherwise
+If the p-value is less than 0.0005 then '< 0.001' is returned otherwise
 p-value rounded to 3 decimals is returned
 }
 \examples{
 
 outcome <- rnorm(20)
-group <- factor(rep(c("A","B"),each=10))
+group <- factor(rep(c('A','B'),each=10))
 d.frame <- data.frame(outcome,group)
 
-ttestFunc(d.frame,"outcome","group")
+ttestFunc(d.frame,'outcome','group')
 
 }
 \seealso{

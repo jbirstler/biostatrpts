@@ -171,12 +171,15 @@ factorName if is.null(trxName).}
 \item{...}{Any other argument that can be passed to uwLatex()}
 }
 \description{
+Produces bar plot and LaTex table of categorical variables vs. treatment.
+}
+\details{
 Bar graph for one or two categorical variables.  trxName is on the outside
 of the graph and factorName is on the inside of the graph. uwBar is used to
 create the bar plot. uwPVals calculates the p-values. uwLatex is used to
 create a corresponding LaTeX table.
-}
-\details{
+
+
 Additional Functions Required: uwLatex(), uwPVals(), uwBar(), and
 figureBox()
 
@@ -203,26 +206,26 @@ AE <-ordered(sample(c("None","Mild","Moderate","Severe"),90,replace=TRUE),
              c("None", "Mild", "Moderate", "Severe"))
 data <- data.frame(TRT,AE)
 
-layout(matrix(c(1,1,2,2,3,3,4,4),nrow=2,byrow=TRUE))
-uwBarPlot(demoData=data,trxName=NULL,factorName="AE",Legend=TRUE,demoBarPlot=FALSE,pHoriz=TRUE,pBeside=TRUE,
-          xLab="Number of Subjects",pTitle="Adverse Events",digits=1,barNamesAngle=60,cex.names=0.8,
-          lined=FALSE,Percent=FALSE,barNamesLas=1,barNamesSeq=1,printPVals=TRUE,pTest="f",pValCex=0.6,
-          LatexFileName=NULL,LegendLoc="topright")
+layout(matrix(c(1,1,2,2,3,3,4,4),nrow = 2,byrow = TRUE))
+uwBarPlot(demoData = data,trxName = NULL,factorName = "AE",Legend = TRUE,demoBarPlot = FALSE,pHoriz = TRUE,pBeside = TRUE,
+          xLab = "Number of Subjects",pTitle = "Adverse Events",digits = 1,barNamesAngle = 60,cex.names = 0.8,
+          lined = FALSE,Percent = FALSE,barNamesLas = 1,barNamesSeq = 1,printPVals = TRUE,pTest = "f",pValCex = 0.6,
+          LatexFileName = NULL,LegendLoc = "topright")
 
-uwBarPlot(demoData=data,trxName="TRT",factorName="AE",Legend=TRUE,demoBarPlot=TRUE,pHoriz=TRUE,
-          xLab="Number of Subjects",pTitle="Adverse Events",digits=1,barNamesAngle=0,
-          lined=FALSE,Percent=FALSE,barNamesLas=0,barNamesSeq=1,printPVals=TRUE,pTest="f",pValCex=0.6,
-          LatexFileName=NULL,LegendLoc="topright",pStrWrap=TRUE)
+uwBarPlot(demoData = data,trxName = "TRT",factorName = "AE",Legend = TRUE,demoBarPlot = TRUE,pHoriz = TRUE,
+          xLab = "Number of Subjects",pTitle = "Adverse Events",digits = 1,barNamesAngle = 0,
+          lined = FALSE,Percent = FALSE,barNamesLas = 0,barNamesSeq = 1,printPVals = TRUE,pTest = "f",pValCex = 0.6,
+          LatexFileName = NULL,LegendLoc = "topright",pStrWrap = TRUE)
 
-uwBarPlot(demoData=data,trxName="TRT",factorName="AE",Legend=TRUE,demoBarPlot=FALSE,pHoriz=FALSE,
-          yLab="Percent of Subjects",pTitle="Adverse Events",digits=1,barNamesAngle=0,
-          lined=FALSE,Percent=TRUE,barNamesLas=1,barNamesSeq=1,printPVals=TRUE,pTest="f",pValCex=0.6,
-          LatexFileName=NULL,LegendLoc="topleft")
+uwBarPlot(demoData = data,trxName = "TRT",factorName = "AE",Legend = TRUE,demoBarPlot = FALSE,pHoriz = FALSE,
+          yLab = "Percent of Subjects",pTitle = "Adverse Events",digits = 1,barNamesAngle = 0,
+          lined = FALSE,Percent = TRUE,barNamesLas = 1,barNamesSeq = 1,printPVals = TRUE,pTest = "f",pValCex = 0.6,
+          LatexFileName = NULL,LegendLoc = "topleft")
 
-uwBarPlot(demoData=data,trxName="TRT",factorName="AE",Legend=TRUE,demoBarPlot=TRUE,pHoriz=FALSE,
-          yLab="Percent of Subjects",pTitle="Adverse Events",digits=1,barNamesAngle=45,
-          lined=TRUE,Percent=TRUE,barNamesLas=1,barNamesSeq=1,printPVals=TRUE,pTest="f",pValCex=0.6,
-          LatexFileName=NULL,LegendLoc="topleft")
+uwBarPlot(demoData = data,trxName = "TRT",factorName = "AE",Legend = TRUE,demoBarPlot = TRUE,pHoriz = FALSE,
+          yLab = "Percent of Subjects",pTitle = "Adverse Events",digits = 1,barNamesAngle = 45,
+          lined = TRUE,Percent = TRUE,barNamesLas = 1,barNamesSeq = 1,printPVals = TRUE,pTest = "f",pValCex = 0.6,
+          LatexFileName = NULL,LegendLoc = "topleft")
 
 }
 \author{
