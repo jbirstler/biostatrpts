@@ -54,10 +54,11 @@
 #' Informatics Department and Frontier Science, Scott Hetzel M.S.
 #' @seealso uwLatex()
 #' @export
+#' @importFrom survival coxph
 #' @examples
 #'
 #'
-#' data(colon) # from library(survival)
+#' data(colon, package = "survival") # from library(survival)
 #' colon$sex.f <- factor(colon$sex, levels = c(0, 1), labels = c("Female", "Male"))
 #' colon$surg.f <- factor(colon$surg,
 #'   levels = c(0, 1),

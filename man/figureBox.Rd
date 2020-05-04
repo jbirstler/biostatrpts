@@ -46,11 +46,6 @@ each figure.  It also returns values that are used for placement of text in
 the figure margins.  A figure must be open to run this function as it calls
 for par('usr'), par('pin') and other graphing parameters.
 }
-\examples{
-
-
-
-}
 \seealso{
 uwBoxPlot and uwBarPlot
 }

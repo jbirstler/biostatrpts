@@ -8,8 +8,9 @@
 #' @param obj lme object
 #' @return R-square value
 #' @export
-#' @examples
-#'
+#' @importFrom aod wald.test
+#' @importFrom nlme fixef
+
 r2lme <- function(obj) {
   # implements R2 from Edwards, Muller, Wolfinger, Qaqish and Schabenberger, 2008.
   if (class(obj) != "lme") {

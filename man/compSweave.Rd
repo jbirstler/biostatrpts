@@ -28,12 +28,11 @@ into a PDF.
 }
 \examples{
 
-compSweave('report')
+compSweave("report")
 
-#Make sure there is a file name 'report.Rnw' in
-#the R working directory.  If there are syntax errors in the R or LaTeX
-#code then document will not be fully compiled.
-
+# Make sure there is a file name 'report.Rnw' in
+# the R working directory.  If there are syntax errors in the R or LaTeX
+# code then document will not be fully compiled.
 }
 \seealso{
 beginSweaveFile(), Sweave()

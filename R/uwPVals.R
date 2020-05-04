@@ -32,7 +32,7 @@
 #' 'fisher' and 'chisq' run a Chi-Square test over all levels
 #' @param pAdjust (string) Indicates what, if any, p-value adjustment type you
 #' would like to use for two-way multiple comparisons. Default (NULL) means no
-#' adjustment, 'h', for 'holm' meth, or 'b' for 'bonferroni' adjustment.
+#' adjustment, 'h', for 'holm' method, or 'b' for 'bonferroni' adjustment.
 #' Number of comparisons is always the number of two-way combinations of the
 #' treatment levels, even for when trxControl is defined, and for when pExclude
 #' is used. Can only be used if pairwise=TRUE
@@ -62,6 +62,8 @@
 #' @seealso wilcox.test(), t.test(), fisher.test(), chisq.test(),
 #' kruskal.test(), anova()
 #' @export
+#' @importFrom utils combn
+#' @importFrom gdata drop.levels
 #' @examples
 #'
 #'
@@ -497,7 +499,7 @@ uwPVals <- function(data, factNames = NULL, metricName = NULL, trxName, trxContr
       if (!is.null(pAdjust)) {
         if (sum(is.nan(PV[[1]])) != length(PV[[1]])) {
           PV[[1]] <- p.adjust(as.numeric(PV[[1]]),
-            meth
+            method
             = pAdjust, n = ncol(combn(
               nlevels(thisLev[[trxName]]),
               2
@@ -524,7 +526,7 @@ uwPVals <- function(data, factNames = NULL, metricName = NULL, trxName, trxContr
     if (!is.null(pAdjust)) {
       if (sum(is.nan(PV[[1]])) != length(PV[[1]])) {
         PV[[1]] <- p.adjust(as.numeric(PV[[1]]),
-          meth
+          method
           = pAdjust, n = ncol(combn(
             nlevels(data[[trxName]]),
             2
@@ -562,7 +564,7 @@ uwPVals <- function(data, factNames = NULL, metricName = NULL, trxName, trxContr
           if (!is.null(pAdjust)) {
             if (sum(is.nan(PV[[1]])) != length(PV[[1]])) {
               PV[[1]] <- p.adjust(as.numeric(PV[[1]]),
-                meth
+                method
                 = pAdjust, n = ncol(combn(
                   nlevels(thisLev[[trxName]]),
                   2
@@ -622,7 +624,7 @@ uwPVals <- function(data, factNames = NULL, metricName = NULL, trxName, trxContr
       if (!is.null(pAdjust)) {
         if (sum(is.nan(PV[[1]])) != length(PV[[1]])) {
           PV[[1]] <- p.adjust(as.numeric(PV[[1]]),
-            meth
+            method
             = pAdjust, n = ncol(combn(
               nlevels(thisLev[[trxName]]),
               2
@@ -650,7 +652,7 @@ uwPVals <- function(data, factNames = NULL, metricName = NULL, trxName, trxContr
     if (!is.null(pAdjust)) {
       if (sum(is.nan(PV[[1]])) != length(PV[[1]])) {
         PV[[1]] <- p.adjust(as.numeric(PV[[1]]),
-          meth
+          method
           = pAdjust, n = ncol(combn(
             nlevels(data[[trxName]]),
             2

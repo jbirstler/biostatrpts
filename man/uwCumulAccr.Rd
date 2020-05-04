@@ -73,49 +73,57 @@ to judge if pre-determined accrual rates are being met.
 \examples{
 
 
-Dates <- c('03/01/2008','09/01/2007','07/01/2007','12/01/2006','08/01/2007','08/01/2007',
-'04/01/2007','04/01/2007','04/01/2007','11/01/2006','11/01/2006','12/01/2006',
-'12/01/2006','10/01/2006','01/01/2007','11/01/2006','12/01/2006','02/01/2007',
-'08/01/2007','08/01/2006','09/01/2006','04/01/2007','05/01/2007','11/01/2006',
-'10/01/2006','03/01/2007','10/01/2007','07/01/2007','03/01/2007','04/01/2006',
-'05/01/2006','11/01/2006','12/01/2006','02/01/2007','02/01/2007','02/01/2007',
-'04/01/2007','05/01/2007','07/01/2007','08/01/2007','11/01/2007','10/01/2007',
-'09/01/2007','10/01/2007','05/01/2007','01/01/2008','12/01/2006','02/01/2007',
-'03/01/2007','04/01/2007','04/01/2007','05/01/2007','07/01/2007','02/01/2007',
-'07/01/2007','10/01/2007','01/01/2008')
+Dates <- c(
+  "03/01/2008", "09/01/2007", "07/01/2007", "12/01/2006", "08/01/2007", "08/01/2007",
+  "04/01/2007", "04/01/2007", "04/01/2007", "11/01/2006", "11/01/2006", "12/01/2006",
+  "12/01/2006", "10/01/2006", "01/01/2007", "11/01/2006", "12/01/2006", "02/01/2007",
+  "08/01/2007", "08/01/2006", "09/01/2006", "04/01/2007", "05/01/2007", "11/01/2006",
+  "10/01/2006", "03/01/2007", "10/01/2007", "07/01/2007", "03/01/2007", "04/01/2006",
+  "05/01/2006", "11/01/2006", "12/01/2006", "02/01/2007", "02/01/2007", "02/01/2007",
+  "04/01/2007", "05/01/2007", "07/01/2007", "08/01/2007", "11/01/2007", "10/01/2007",
+  "09/01/2007", "10/01/2007", "05/01/2007", "01/01/2008", "12/01/2006", "02/01/2007",
+  "03/01/2007", "04/01/2007", "04/01/2007", "05/01/2007", "07/01/2007", "02/01/2007",
+  "07/01/2007", "10/01/2007", "01/01/2008"
+)
 
-library(chron)
-Date <- chron(Dates, format=c(dates='m/d/y'))
-TRT <- rep(c('A','B'), c(30,27))
+Date <- chron::chron(Dates, format = c(dates = "m/d/y"))
+TRT <- rep(c("A", "B"), c(30, 27))
 
 data <- data.frame(Date, TRT)
 
-layout(matrix(c(1,2,3,4), nrow=2, byrow=T))
+layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
 
-uwCumulAccr(accData=data, dateName='Date', trxName=NULL,
-            yLab='Cumulative Number of Subjects',
-            yLim=NULL,
-            pTitle='Accural over Time for Total Cohort',
-            projectLine=list(PatsPerTRT=as.numeric(),DaysPerTRT=as.numeric()))
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = NULL,
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL,
+  pTitle = "Accural over Time for Total Cohort",
+  projectLine = list(PatsPerTRT = as.numeric(), DaysPerTRT = as.numeric())
+)
 # Projected accrual of 32 per arm over 750 days
-uwCumulAccr(accData=data, dateName='Date', trxName=NULL,
-            yLab='Cumulative Number of Subjects',
-            yLim=NULL,startDate='01/01/06',
-            pTitle='Total Cohort with equal projected accrual',
-            projectLine=list(PatsPerTRT=64,DaysPerTRT=750))
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = NULL,
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL, startDate = "01/01/06",
+  pTitle = "Total Cohort with equal projected accrual",
+  projectLine = list(PatsPerTRT = 64, DaysPerTRT = 750)
+)
 
-uwCumulAccr(accData=data, dateName='Date', trxName='TRT',
-            yLab='Cumulative Number of Subjects',
-            yLim=NULL,
-            pTitle='Accural over Time by Treatment Arm',
-            projectLine=list(PatsPerTRT=as.numeric(),DaysPerTRT=as.numeric()))
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = "TRT",
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL,
+  pTitle = "Accural over Time by Treatment Arm",
+  projectLine = list(PatsPerTRT = as.numeric(), DaysPerTRT = as.numeric())
+)
 # Projected accrual of 30 in A and 27 in B over 700 days
-uwCumulAccr(accData=data, dateName='Date', trxName='TRT',
-            yLab='Cumulative Number of Subjects',
-            yLim=c(0,70),LegendCor=c(25,55),
-            pTitle='Accural over Time by Treatment Arm',
-            projectLine=list(PatsPerTRT=c(30,27),DaysPerTRT = 700))
-
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = "TRT",
+  yLab = "Cumulative Number of Subjects",
+  yLim = c(0, 70), LegendCor = c(25, 55),
+  pTitle = "Accural over Time by Treatment Arm",
+  projectLine = list(PatsPerTRT = c(30, 27), DaysPerTRT = 700)
+)
 }
 \author{
 Scott J Hetzel MS. UW-Madison Department of Biostatistics and

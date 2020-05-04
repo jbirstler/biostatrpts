@@ -11,7 +11,7 @@ Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Quisque tortor dui, auctor in quam sit amet, tincidunt tempor metus.
 Authors@R: c(person("Scott", "Hetzel", email = "hetzel@biostat.wisc.edu", role = c("aut", "cre")),
              person("Jen", "Birstler", email = "birstler@wisc.edu", role = "ctb"))
-Imports: chron, survival, gdata, aod
+Imports: chron, survival, gdata, aod, Hmisc, stats, graphics, nlme
 License: GPL-2
 RoxygenNote: 7.1.0
 Encoding: UTF-8

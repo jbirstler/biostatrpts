@@ -105,46 +105,54 @@ use to assess accural
 \examples{
 
 
-Dates <- c('03/01/2008','09/01/2007','07/01/2007','12/01/2006','08/01/2007','08/01/2007',
-'04/01/2007','04/01/2007','04/01/2007','11/01/2006','11/01/2006','12/01/2006',
-'12/01/2006','10/01/2006','01/01/2007','11/01/2006','12/01/2006','02/01/2007',
-'08/01/2007','08/01/2006','09/01/2006','04/01/2007','05/01/2007','11/01/2006',
-'10/01/2006','03/01/2007','10/01/2007','07/01/2007','03/01/2007','05/01/2006',
-'05/01/2006','11/01/2006','12/01/2006','02/01/2007','02/01/2007','02/01/2007',
-'04/01/2007','05/01/2007','07/01/2007','08/01/2007','11/01/2007','10/01/2007',
-'09/01/2007','10/01/2007','05/01/2007','01/01/2008','12/01/2006','02/01/2007',
-'03/01/2007','04/01/2007','04/01/2007','05/01/2007','07/01/2007','02/01/2007',
-'07/01/2007','10/01/2007','01/01/2008')
+Dates <- c(
+  "03/01/2008", "09/01/2007", "07/01/2007", "12/01/2006", "08/01/2007", "08/01/2007",
+  "04/01/2007", "04/01/2007", "04/01/2007", "11/01/2006", "11/01/2006", "12/01/2006",
+  "12/01/2006", "10/01/2006", "01/01/2007", "11/01/2006", "12/01/2006", "02/01/2007",
+  "08/01/2007", "08/01/2006", "09/01/2006", "04/01/2007", "05/01/2007", "11/01/2006",
+  "10/01/2006", "03/01/2007", "10/01/2007", "07/01/2007", "03/01/2007", "05/01/2006",
+  "05/01/2006", "11/01/2006", "12/01/2006", "02/01/2007", "02/01/2007", "02/01/2007",
+  "04/01/2007", "05/01/2007", "07/01/2007", "08/01/2007", "11/01/2007", "10/01/2007",
+  "09/01/2007", "10/01/2007", "05/01/2007", "01/01/2008", "12/01/2006", "02/01/2007",
+  "03/01/2007", "04/01/2007", "04/01/2007", "05/01/2007", "07/01/2007", "02/01/2007",
+  "07/01/2007", "10/01/2007", "01/01/2008"
+)
 
-library(chron)
-Date <- chron(Dates, format=c(dates='m/d/y'))
-TRT <- rep(c('A','B'), c(30,27))
+Date <- chron::chron(Dates, format = c(dates = "m/d/y"))
+TRT <- rep(c("A", "B"), c(30, 27))
 
 data <- data.frame(Date, TRT)
 
-layout(matrix(c(1,2,3,4),nrow=2,byrow=TRUE))
-uwAccrualBars(accData=data,dateName='Date',trxName=NULL,pTitle='Accural',
-              yLab='Months',xLab='Number of Patients',
-              interval='m',yLim=NULL,pHoriz=TRUE,pBeside=TRUE,
-              linedbars=FALSE,Legend=TRUE,LegendLoc='right',
-              LegendCex=0.5,cex.names=0.7,barNamesLas=1)
+layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
+uwAccrualBars(
+  accData = data, dateName = "Date", trxName = NULL, pTitle = "Accural",
+  yLab = "Months", xLab = "Number of Patients",
+  interval = "m", yLim = NULL, pHoriz = TRUE, pBeside = TRUE,
+  linedbars = FALSE, Legend = TRUE, LegendLoc = "right",
+  LegendCex = 0.5, cex.names = 0.7, barNamesLas = 1
+)
 
-uwAccrualBars(accData=data,dateName='Date',trxName=NULL,pTitle='Test',
-              yLab='Number of Patients',xLab='Day',startDate='01/01/2005',currentDate='12/31/2010',
-              interval='d',yLim=NULL,pHoriz=FALSE,pBeside=TRUE,
-              linedbars=TRUE,Legend=FALSE,LegendLoc='topleft',
-              LegendCex=0.6,cex.names=0.8,barNamesSeq=40)
+uwAccrualBars(
+  accData = data, dateName = "Date", trxName = NULL, pTitle = "Test",
+  yLab = "Number of Patients", xLab = "Day", startDate = "01/01/2005", currentDate = "12/31/2010",
+  interval = "d", yLim = NULL, pHoriz = FALSE, pBeside = TRUE,
+  linedbars = TRUE, Legend = FALSE, LegendLoc = "topleft",
+  LegendCex = 0.6, cex.names = 0.8, barNamesSeq = 40
+)
 
-uwAccrualBars(accData=data,dateName='Date',trxName=NULL,pTitle='Bars',
-              yLab='Months',xLab='Number of Subjects',printBarVals=FALSE,
-              interval='y',yLim=NULL,pHoriz=TRUE,pBeside=FALSE,
-              linedbars=TRUE,Legend=FALSE,LegendLoc='bottomleft',
-              LegendCex=0.7,cex.names=0.9)
+uwAccrualBars(
+  accData = data, dateName = "Date", trxName = NULL, pTitle = "Bars",
+  yLab = "Months", xLab = "Number of Subjects", printBarVals = FALSE,
+  interval = "y", yLim = NULL, pHoriz = TRUE, pBeside = FALSE,
+  linedbars = TRUE, Legend = FALSE, LegendLoc = "bottomleft",
+  LegendCex = 0.7, cex.names = 0.9
+)
 
-uwAccrualBars(accData=data,dateName='Date',trxName=NULL,
-              interval='m',yLim=NULL,pHoriz=FALSE,pBeside=FALSE,
-              linedbars=FALSE,Legend=TRUE)
-
+uwAccrualBars(
+  accData = data, dateName = "Date", trxName = NULL,
+  interval = "m", yLim = NULL, pHoriz = FALSE, pBeside = FALSE,
+  linedbars = FALSE, Legend = TRUE
+)
 }
 \seealso{
 uwBars

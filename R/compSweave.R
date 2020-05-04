@@ -17,6 +17,7 @@
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso beginSweaveFile(), Sweave()
 #' @export
+#' @importFrom utils Sweave
 #' @examples
 #'
 #' compSweave("report")

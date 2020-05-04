@@ -53,6 +53,7 @@
 #' Technology Research Foundation
 #' @seealso uwBars
 #' @export
+#' @import chron
 #' @examples
 #'
 #'
@@ -69,8 +70,7 @@
 #'   "07/01/2007", "10/01/2007", "01/01/2008"
 #' )
 #'
-#' library(chron)
-#' Date <- chron(Dates, format = c(dates = "m/d/y"))
+#' Date <- chron::chron(Dates, format = c(dates = "m/d/y"))
 #' TRT <- rep(c("A", "B"), c(30, 27))
 #'
 #' data <- data.frame(Date, TRT)
@@ -109,7 +109,6 @@ uwAccrualBars <- function(accData, dateName, trxName = NULL, interval = c("month
                           currentDate = NULL, pTitle = "Accrual Over Time", yLab = NULL, xLab = NULL, yLim = NULL, pHoriz = FALSE,
                           pBeside = TRUE, linedbars = FALSE, printBarVals = TRUE, Legend = FALSE, LegendLoc = "topright", LegendCex = 0.8,
                           cex.names = 1, titleCex = 1, barNamesLas = 1, barNamesSeq = 1, barNamesAngle = 0) {
-  require(chron)
   # Remove any lines of data that have missing dateName
   accData <- accData[!is.na(accData[[dateName]]), ]
   # If trxName is NULL then Legend must be FALSE

@@ -52,7 +52,6 @@ Meant to be implemented in the compiling of a .Rnw file by Sweave() command.
 # \input{Weight.tex}
 # \input{Height.tex}
 # \clearpage
-
 }
 \seealso{
 Sweave()

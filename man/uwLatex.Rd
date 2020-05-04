@@ -132,61 +132,64 @@ Professor of Statistics at Vanderbilt.
 \examples{
 
 
-TRT <- rep(c('A','B'), 3)
-Time <- c('Baseline','','Week 5','','Week 10','')
-col1 <- c(20,20,30,20,40,23)
-col3 <- c(22,20,17,18,17,18)
-col5 <- c(24,20,19,22,9,19)
+TRT <- rep(c("A", "B"), 3)
+Time <- c("Baseline", "", "Week 5", "", "Week 10", "")
+col1 <- c(20, 20, 30, 20, 40, 23)
+col3 <- c(22, 20, 17, 18, 17, 18)
+col5 <- c(24, 20, 19, 22, 9, 19)
 nA <- 66
 nB <- 60
 col2 <-
-round(c(col1[1]/nA,col1[2]/nB,col1[3]/nA,col1[4]/nB,col1[5]/nA,col1[6]/nB),3) 
+  round(c(col1[1] / nA, col1[2] / nB, col1[3] / nA, col1[4] / nB, col1[5] / nA, col1[6] / nB), 3)
 col4 <-
-round(c(col3[1]/nA,col3[2]/nB,col3[3]/nA,col3[4]/nB,col3[5]/nA,col3[6]/nB),3) 
+  round(c(col3[1] / nA, col3[2] / nB, col3[3] / nA, col3[4] / nB, col3[5] / nA, col3[6] / nB), 3)
 col6 <-
-round(c(col5[2]/nA,col5[2]/nB,col5[3]/nA,col5[4]/nB,col5[5]/nA,col5[6]/nB),3) 
+  round(c(col5[2] / nA, col5[2] / nB, col5[3] / nA, col5[4] / nB, col5[5] / nA, col5[6] / nB), 3)
 
 mat <-
-cbind(Time,TRT,'N'=col1,'Pct'=col2,'N'=col3,'Pct'=col4,'N'=col5,'Pct'=col6) 
+  cbind(Time, TRT, "N" = col1, "Pct" = col2, "N" = col3, "Pct" = col4, "N" = col5, "Pct" = col6)
 
-uwLatex(mat=mat,
-        file=NULL,
-        transpose=FALSE,
-        where='h',
-        justify='center',
-        size='normalsize',
-        cgroup.type='bfseries',
-        cgroup=c('','','High','Medium','Low'),
-        n.cgroup=c(1,1,2,2,2),
-        rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
-        cgroup.just=c('|c','c|','c','c','c|'),
-        col.just=c('|l','l|',rep('c',5),'c|'),
-        first.coltype='mdseries',
-        caption.loc='bottom',
-        caption='Example of uwLatex function',
-        label=NULL,
-        showTab=TRUE)
+uwLatex(
+  mat = mat,
+  file = NULL,
+  transpose = FALSE,
+  where = "h",
+  justify = "center",
+  size = "normalsize",
+  cgroup.type = "bfseries",
+  cgroup = c("", "", "High", "Medium", "Low"),
+  n.cgroup = c(1, 1, 2, 2, 2),
+  rowLines = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE),
+  cgroup.just = c("|c", "c|", "c", "c", "c|"),
+  col.just = c("|l", "l|", rep("c", 5), "c|"),
+  first.coltype = "mdseries",
+  caption.loc = "bottom",
+  caption = "Example of uwLatex function",
+  label = NULL,
+  showTab = TRUE
+)
 
 # with transpose
 
-uwLatex(mat=mat,
-        file=NULL,
-        transpose=TRUE,
-        where='h',
-        justify='center',
-        size='normalsize',
-        cgroup.type='bfseries',
-        cgroup=c('','','High','Medium','Low'),
-        n.cgroup=c(1,1,2,2,2),
-        rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE),
-        cgroup.just='c',
-        col.just=c(rep('c',8)),
-        first.coltype='mdseries',
-        caption.loc='bottom',
-        caption='Example of uwLatex function',
-        label=NULL,
-        showTab=FALSE)
-
+uwLatex(
+  mat = mat,
+  file = NULL,
+  transpose = TRUE,
+  where = "h",
+  justify = "center",
+  size = "normalsize",
+  cgroup.type = "bfseries",
+  cgroup = c("", "", "High", "Medium", "Low"),
+  n.cgroup = c(1, 1, 2, 2, 2),
+  rowLines = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE),
+  cgroup.just = "c",
+  col.just = c(rep("c", 8)),
+  first.coltype = "mdseries",
+  caption.loc = "bottom",
+  caption = "Example of uwLatex function",
+  label = NULL,
+  showTab = FALSE
+)
 }
 \seealso{
 latex() in library(Hmisc)

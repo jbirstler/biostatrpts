@@ -26,7 +26,7 @@
 #' @export
 #' @examples
 #'
-#' ## Example
+#' # Example
 #'
 #' ID <- rep(letters[1:20], 3)
 #' TRT <- rep(c("A", "B"), 30)

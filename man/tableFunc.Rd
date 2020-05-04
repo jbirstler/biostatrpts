@@ -34,12 +34,11 @@ to print
 \examples{
 
 set.seed(784)
-outcome <- factor(sample(c('No','Yes'),replace=TRUE,size=20))
-group <- factor(rep(c('A','B'),each=10))
-d.frame <- data.frame(outcome,group)
+outcome <- factor(sample(c("No", "Yes"), replace = TRUE, size = 20))
+group <- factor(rep(c("A", "B"), each = 10))
+d.frame <- data.frame(outcome, group)
 
-tableFunc(d.frame,'outcome','group',level='Yes')
-
+tableFunc(d.frame, "outcome", "group", level = "Yes")
 }
 \seealso{
 chisqFunc

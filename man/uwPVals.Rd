@@ -48,7 +48,7 @@ FALSE.  'wilcox' runs Kruskal-Wallis test, 't.test' runs an ANOVA test,
 
 \item{pAdjust}{(string) Indicates what, if any, p-value adjustment type you
 would like to use for two-way multiple comparisons. Default (NULL) means no
-adjustment, 'h', for 'holm' meth, or 'b' for 'bonferroni' adjustment.
+adjustment, 'h', for 'holm' method, or 'b' for 'bonferroni' adjustment.
 Number of comparisons is always the number of two-way combinations of the
 treatment levels, even for when trxControl is defined, and for when pExclude
 is used. Can only be used if pairwise=TRUE}
@@ -96,36 +96,45 @@ multiple testing.
 \examples{
 
 
-TRT <- rep(c('A','B','C'), 120)
-AE <- ordered(sample(c('None','Mild','Moderate','Severe'),360,replace=TRUE),
-             c('None', 'Mild', 'Moderate', 'Severe'))
-Time <- rep(c('Baseline','Week 24'), each=180)
-Weight <- rnorm(360,180,20)
-data1 <- data.frame(TRT,AE,Weight,Time)
+TRT <- rep(c("A", "B", "C"), 120)
+AE <- ordered(
+  sample(c("None", "Mild", "Moderate", "Severe"), 360, replace = TRUE),
+  c("None", "Mild", "Moderate", "Severe")
+)
+Time <- rep(c("Baseline", "Week 24"), each = 180)
+Weight <- rnorm(360, 180, 20)
+data1 <- data.frame(TRT, AE, Weight, Time)
 
-uwPVals(data1, factNames='AE', trxName='TRT', trxControl=NULL,
-        pTest='f', pairwise=TRUE, pExclude=c('A','B'))
+uwPVals(data1,
+  factNames = "AE", trxName = "TRT", trxControl = NULL,
+  pTest = "f", pairwise = TRUE, pExclude = c("A", "B")
+)
 
-uwPVals(data1, factNames='AE', trxName='TRT', pairwise=FALSE, pTest='c')
+uwPVals(data1, factNames = "AE", trxName = "TRT", pairwise = FALSE, pTest = "c")
 
-uwPVals(data1, factNames='AE', metricName='Weight', trxName='TRT',
-        trxControl='A', pTest='t', pairwise=TRUE)
+uwPVals(data1,
+  factNames = "AE", metricName = "Weight", trxName = "TRT",
+  trxControl = "A", pTest = "t", pairwise = TRUE
+)
 
-uwPVals(data1, factNames=c('Time','AE'), metricName='Weight', trxName='TRT',
-        trxControl=NULL, pTest='t', pairwise=TRUE)
+uwPVals(data1,
+  factNames = c("Time", "AE"), metricName = "Weight", trxName = "TRT",
+  trxControl = NULL, pTest = "t", pairwise = TRUE
+)
 
 # 1 factor, 1 metric vars
-uwPVals(data1, factName='AE', metricName='Weight', trxName='TRT',
-        pairwise=TRUE, pTest='t',trxControl=NULL,
-pInclude=list(list('A','B'),list('A',c('B','C')), list(c('A','B'),'C')))
+uwPVals(data1,
+  factName = "AE", metricName = "Weight", trxName = "TRT",
+  pairwise = TRUE, pTest = "t", trxControl = NULL,
+  pInclude = list(list("A", "B"), list("A", c("B", "C")), list(c("A", "B"), "C"))
+)
 
 # 2 factors, 1 metric vars
-uwPVals(data1, factName=c('Time','AE'), metricName='Weight', trxName='TRT',
-        pairwise=TRUE, pTest='t',trxControl=NULL,
-pInclude=list(list('A','B'),list('A',c('B','C')), list(c('A','B'),'C')))
-
-
-
+uwPVals(data1,
+  factName = c("Time", "AE"), metricName = "Weight", trxName = "TRT",
+  pairwise = TRUE, pTest = "t", trxControl = NULL,
+  pInclude = list(list("A", "B"), list("A", c("B", "C")), list(c("A", "B"), "C"))
+)
 }
 \seealso{
 wilcox.test(), t.test(), fisher.test(), chisq.test(),

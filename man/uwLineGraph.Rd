@@ -134,48 +134,53 @@ points
 \examples{
 
 
-TRT <- rep(rep(c('A','B','C'), c(20,20,20)), 4)
+TRT <- rep(rep(c("A", "B", "C"), c(20, 20, 20)), 4)
 
 ptID <- rep(1:60, 4)
 ptID <- factor(ptID)
 
-numVar <- c(rnorm(20,0,1),rnorm(20,1,1),rnorm(20,2,1),rnorm(20,3,1),
-            rnorm(20,3,1),rnorm(20,10,1),rnorm(20,2,3),rnorm(20,0,1),
-            rnorm(20,6,1),rnorm(20,1,3),rnorm(20,2,5),rnorm(20,3,1))
+numVar <- c(
+  rnorm(20, 0, 1), rnorm(20, 1, 1), rnorm(20, 2, 1), rnorm(20, 3, 1),
+  rnorm(20, 3, 1), rnorm(20, 10, 1), rnorm(20, 2, 3), rnorm(20, 0, 1),
+  rnorm(20, 6, 1), rnorm(20, 1, 3), rnorm(20, 2, 5), rnorm(20, 3, 1)
+)
 
-timeVar <- rep(c('Baseline','3 Months','6 Months', '12 Months'),c(60,60,60,60))
-timeVar <- ordered(timeVar,
-                   c('Baseline','3 Months','6 Months', '12 Months'))
+timeVar <- rep(c("Baseline", "3 Months", "6 Months", "12 Months"), c(60, 60, 60, 60))
+timeVar <- ordered(
+  timeVar,
+  c("Baseline", "3 Months", "6 Months", "12 Months")
+)
 
 df <- data.frame(TRT, ptID, numVar, timeVar)
 
 
-uwLineGraph(data=df,
-            metricName='numVar',
-            trxName='TRT',
-            factorName='timeVar',
-            LatexFileName=NULL,
-            plotMean=TRUE,
-            pch=NULL,
-            colScale=TRUE,
-            yLim=NULL,
-            yLab='',
-            xLab='',
-            pTitle='Example of uwLineGraph',
-            refLines=TRUE,
-            Legend=TRUE,
-            LegendLoc='topright',
-            printPVals=TRUE,
-            pTest='t',
-            pExclude=NULL,
-            trxControl='A',
-            pairDiffTab=TRUE,
-            ptIDname='ptID',
-            BaseLevel='Baseline',
-            numDec=2,
-            rowLines=list(c(FALSE),c(FALSE)),
-            caption=list(c(NULL),c(NULL)),
-            firstCol.name='Time',
-            Ropen=FALSE)
-
+uwLineGraph(
+  data = df,
+  metricName = "numVar",
+  trxName = "TRT",
+  factorName = "timeVar",
+  LatexFileName = NULL,
+  plotMean = TRUE,
+  pch = NULL,
+  colScale = TRUE,
+  yLim = NULL,
+  yLab = "",
+  xLab = "",
+  pTitle = "Example of uwLineGraph",
+  refLines = TRUE,
+  Legend = TRUE,
+  LegendLoc = "topright",
+  printPVals = TRUE,
+  pTest = "t",
+  pExclude = NULL,
+  trxControl = "A",
+  pairDiffTab = TRUE,
+  ptIDname = "ptID",
+  BaseLevel = "Baseline",
+  numDec = 2,
+  rowLines = list(c(FALSE), c(FALSE)),
+  caption = list(c(NULL), c(NULL)),
+  firstCol.name = "Time",
+  Ropen = FALSE
+)
 }

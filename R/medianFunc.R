@@ -19,6 +19,7 @@
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso meanFunc
 #' @export
+#' @import stats
 #' @examples
 #'
 #' outcome <- rnorm(20)

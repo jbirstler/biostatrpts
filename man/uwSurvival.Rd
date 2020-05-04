@@ -132,25 +132,27 @@ Only works well with layout(1)
 \examples{
 
 
-death <- sample(c(0,1), 200, replace=TRUE, prob=c(0.4, 0.6))
-trt <- rep(c('ABDC','ABGH'), c(100,100))
+death <- sample(c(0, 1), 200, replace = TRUE, prob = c(0.4, 0.6))
+trt <- rep(c("ABDC", "ABGH"), c(100, 100))
 time <- ceiling(runif(200, 0, 100))
 
-sData <- data.frame(death,trt,time)
+sData <- data.frame(death, trt, time)
 layout(1)
-uwSurvival(survData=sData, statusName='death', trxName='trt', trxControl='ABDC',                  
-           timeName='time', pTitle='Survival by Treatment',
-           yLab='Percent of Survival Probability',
-           xLab='Days from Randomization',pValCex=0.8,SScex=0.7,
-           markCensor=FALSE, Legend=TRUE, LegendLoc='topright',   
-           LatexFileName=c(paste(getwd(),'surv1.tex',sep=''),
-                           paste(getwd(),'/surv2.tex',sep='')),
-           showTab=FALSE,printPVals=TRUE,printSS=TRUE,
-           Ropen=FALSE,GraphSSfreq=5,TableSSfreq=1,firstCol.name=NULL,
-           LatexCaption=NULL,SSinPlot=TRUE,
-           size='scriptsize')
-
-
+uwSurvival(
+  survData = sData, statusName = "death", trxName = "trt", trxControl = "ABDC",
+  timeName = "time", pTitle = "Survival by Treatment",
+  yLab = "Percent of Survival Probability",
+  xLab = "Days from Randomization", pValCex = 0.8, SScex = 0.7,
+  markCensor = FALSE, Legend = TRUE, LegendLoc = "topright",
+  LatexFileName = c(
+    paste(getwd(), "surv1.tex", sep = ""),
+    paste(getwd(), "/surv2.tex", sep = "")
+  ),
+  showTab = FALSE, printPVals = TRUE, printSS = TRUE,
+  Ropen = FALSE, GraphSSfreq = 5, TableSSfreq = 1, firstCol.name = NULL,
+  LatexCaption = NULL, SSinPlot = TRUE,
+  size = "scriptsize"
+)
 }
 \author{
 Scott Hetzel, M.S. Department of Biostatistics and Medical

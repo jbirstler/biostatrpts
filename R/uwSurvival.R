@@ -60,6 +60,7 @@
 #' @author Scott Hetzel, M.S. Department of Biostatistics and Medical
 #' Informatics. University of Wisconsin-Madison.
 #' @export
+#' @importFrom survival Surv survfit survdiff
 #' @examples
 #'
 #'
@@ -95,9 +96,6 @@ uwSurvival <- function(survData, statusName, trxName, trxControl, timeName, fun 
 
   # create a vector of milestone days from start of treatment based on a fixed interval plus any
   # arbitrarily selected days
-
-  require(survival)
-  require(chron)
 
   # remove any data rows for missing values in trxName
   survData <- survData[!is.na(survData[[trxName]]), ]
@@ -140,9 +138,7 @@ uwSurvival <- function(survData, statusName, trxName, trxControl, timeName, fun 
   # = summFit$surv, std.err = summFit$std.err, lower = summFit$lower, upper = summFit$upper, strata =
   # summFit$strata)
 
-  # require(Hmisc)
-
-  ############################################################### Create a survival table for each treatment, each of which has its own strata in the survfit object
+  # Create a survival table for each treatment, each of which has its own strata in the survfit object
 
   if (Ropen) {
     fit <- survfit(sForm, data = survData)
@@ -202,7 +198,7 @@ uwSurvival <- function(survData, statusName, trxName, trxControl, timeName, fun 
 
     uwLatex(mat = latexTable, file = LatexFileName[si], caption = LatexCaption[si], ...)
   }
-  ################# end of survival summary table
+  # end of survival summary table
   defaultmar <- par("mar")
   par(mar = c(8, 8, 5, 3) + 0.1)
   color <- ifelse(is.null(color), paste("gray", ceiling(seq(from = 10, to = 80, length = numTrx))), color)

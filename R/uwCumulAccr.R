@@ -42,6 +42,7 @@
 #' Medical Informatics. Contributions from Patrick Lenon. Frontier Science and
 #' Technology Research Foundation
 #' @export
+#' @importFrom chron chron seq.dates
 #' @examples
 #'
 #'
@@ -58,13 +59,12 @@
 #'   "07/01/2007", "10/01/2007", "01/01/2008"
 #' )
 #'
-#' library(chron)
-#' Date <- chron(Dates, format = c(dates = "m/d/y"))
+#' Date <- chron::chron(Dates, format = c(dates = "m/d/y"))
 #' TRT <- rep(c("A", "B"), c(30, 27))
 #'
 #' data <- data.frame(Date, TRT)
 #'
-#' layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = T))
+#' layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))
 #'
 #' uwCumulAccr(
 #'   accData = data, dateName = "Date", trxName = NULL,
@@ -102,7 +102,6 @@ uwCumulAccr <- function(accData, dateName, trxName = NULL, yLab = "Cumulative Nu
                           PatsPerTRT = as.numeric(),
                           DaysPerTRT = as.numeric()
                         ), titleCex = 1) {
-  require(chron)
 
   # Remove any lines of data that have missing dateName
   accData <- accData[!is.na(accData[[dateName]]), ]

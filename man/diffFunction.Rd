@@ -45,25 +45,25 @@ delta=TRUE, or by itself
 }
 \examples{
 
-## Example
+# Example
 
 ID <- rep(letters[1:20], 3)
-TRT <- rep(c('A','B'), 30)
-Time <- c(rep('Baseline',20),rep('Week 5',20),rep('Week 10',20))
-Time <- ordered(Time, c('Baseline', 'Week 5', 'Week 10'))
-AE <- sample(c(1,2,3,4),60,replace=TRUE)
-  
-data2 <- data.frame(ID,TRT,Time,AE)
+TRT <- rep(c("A", "B"), 30)
+Time <- c(rep("Baseline", 20), rep("Week 5", 20), rep("Week 10", 20))
+Time <- ordered(Time, c("Baseline", "Week 5", "Week 10"))
+AE <- sample(c(1, 2, 3, 4), 60, replace = TRUE)
 
-diffFunction(Diffdata=data2,
-             variable='AE',
-             TrxName='TRT',
-             VisitName='Time',
-             Baseline='Baseline',
-             ptID='ID',
-             deltaPct=TRUE)
+data2 <- data.frame(ID, TRT, Time, AE)
 
-
+diffFunction(
+  Diffdata = data2,
+  variable = "AE",
+  TrxName = "TRT",
+  VisitName = "Time",
+  Baseline = "Baseline",
+  ptID = "ID",
+  deltaPct = TRUE
+)
 }
 \seealso{
 AEfactorized(), uwLeveledBoxPlot()

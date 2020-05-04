@@ -46,17 +46,18 @@ the fitted simple linear regression line.
 \examples{
 
 
-  Xvar <- rnorm(50,-10,1)
-  Yvar <- 0.5*Xvar + rnorm(50,0,1)
+Xvar <- rnorm(50, -10, 1)
+Yvar <- 0.5 * Xvar + rnorm(50, 0, 1)
 
-  dfLin <- data.frame(Xvar,Yvar)
- 
-  layout(1)
-  uwSimpleReg(Data=dfLin,respVar='Yvar',depVar='Xvar',
-              main='Example of uwSimpleReg',
-              ylab='Example Response', xlab='Example Explanatory',
-              ylim=NULL,xlim=NULL, printPVal=TRUE,printModel=TRUE,printRsq=TRUE)
+dfLin <- data.frame(Xvar, Yvar)
 
+layout(1)
+uwSimpleReg(
+  Data = dfLin, respVar = "Yvar", depVar = "Xvar",
+  main = "Example of uwSimpleReg",
+  ylab = "Example Response", xlab = "Example Explanatory",
+  ylim = NULL, xlim = NULL, printPVal = TRUE, printModel = TRUE, printRsq = TRUE
+)
 }
 \seealso{
 plot(), abline(), lm()

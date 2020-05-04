@@ -31,9 +31,8 @@ consistent reporting.
 #  See the difference in the print out of the two round functions for
 #  rounding 0.0395 when rounding to 3 decimal places
 
-rounds(0.0395,3)
-round(0.0395,3) 
-
+rounds(0.0395, 3)
+round(0.0395, 3)
 }
 \seealso{
 round()

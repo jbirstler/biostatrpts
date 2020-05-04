@@ -16,6 +16,7 @@
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso medianFunc
 #' @export
+#' @import stats
 #' @examples
 #'
 #' outcome <- rnorm(20)

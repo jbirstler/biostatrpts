@@ -48,10 +48,8 @@ lost.
 \examples{
 
 
-#This will create a report.Rnw file in the working Rdirectory
+# This will create a report.Rnw file in the working Rdirectory
 beginSweaveFile()
-
-
 }
 \seealso{
 Sweave()

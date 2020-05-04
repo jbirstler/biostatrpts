@@ -129,30 +129,33 @@
 #'
 #' layout(matrix(c(1, 1, 2, 2, 3, 3, 4, 4), nrow = 2, byrow = TRUE))
 #' uwBarPlot(
-#'   demoData = data, trxName = NULL, factorName = "AE", Legend = TRUE, demoBarPlot = FALSE, pHoriz = TRUE, pBeside = TRUE,
-#'   xLab = "Number of Subjects", pTitle = "Adverse Events", digits = 1, barNamesAngle = 60, cex.names = 0.8,
-#'   lined = FALSE, Percent = FALSE, barNamesLas = 1, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
+#'   demoData = data, trxName = NULL, factorName = "AE", Legend = TRUE, demoBarPlot = FALSE,
+#'   pHoriz = TRUE, pBeside = TRUE, xLab = "Number of Subjects", pTitle = "Adverse Events",
+#'   digits = 1, barNamesAngle = 60, cex.names = 0.8, lined = FALSE, Percent = FALSE,
+#'   barNamesLas = 1, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
 #'   LatexFileName = NULL, LegendLoc = "topright"
 #' )
 #'
 #' uwBarPlot(
-#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = TRUE, pHoriz = TRUE,
-#'   xLab = "Number of Subjects", pTitle = "Adverse Events", digits = 1, barNamesAngle = 0,
-#'   lined = FALSE, Percent = FALSE, barNamesLas = 0, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
-#'   LatexFileName = NULL, LegendLoc = "topright", pStrWrap = TRUE
+#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = TRUE,
+#'   pHoriz = TRUE, xLab = "Number of Subjects", pTitle = "Adverse Events", digits = 1,
+#'   barNamesAngle = 0, lined = FALSE, Percent = FALSE, barNamesLas = 0, barNamesSeq = 1,
+#'   printPVals = TRUE, pTest = "f", pValCex = 0.6, LatexFileName = NULL, LegendLoc = "topright",
+#'   pStrWrap = TRUE
 #' )
 #'
 #' uwBarPlot(
-#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = FALSE, pHoriz = FALSE,
-#'   yLab = "Percent of Subjects", pTitle = "Adverse Events", digits = 1, barNamesAngle = 0,
-#'   lined = FALSE, Percent = TRUE, barNamesLas = 1, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
-#'   LatexFileName = NULL, LegendLoc = "topleft"
+#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = FALSE,
+#'   pHoriz = FALSE, yLab = "Percent of Subjects", pTitle = "Adverse Events", digits = 1,
+#'   barNamesAngle = 0, lined = FALSE, Percent = TRUE, barNamesLas = 1, barNamesSeq = 1,
+#'   printPVals = TRUE, pTest = "f", pValCex = 0.6, LatexFileName = NULL, LegendLoc = "topleft"
 #' )
 #'
 #' uwBarPlot(
-#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = TRUE, pHoriz = FALSE,
-#'   yLab = "Percent of Subjects", pTitle = "Adverse Events", digits = 1, barNamesAngle = 45,
-#'   lined = TRUE, Percent = TRUE, barNamesLas = 1, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
+#'   demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = TRUE,
+#'   pHoriz = FALSE, yLab = "Percent of Subjects", pTitle = "Adverse Events", digits = 1,
+#'   barNamesAngle = 45, lined = TRUE, Percent = TRUE, barNamesLas = 1, barNamesSeq = 1,
+#'   printPVals = TRUE, pTest = "f", pValCex = 0.6,
 #'   LatexFileName = NULL, LegendLoc = "topleft"
 #' )
 uwBarPlot <- function(demoData,
@@ -192,7 +195,6 @@ uwBarPlot <- function(demoData,
                       LatexCaption = NULL,
                       trxColname = NULL,
                       ...) {
-  require(Hmisc)
 
   if (!is.data.frame(demoData)) {
     stop("demoData is not a data.frame")

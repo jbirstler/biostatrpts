@@ -19,8 +19,3 @@ Calculates R-squared for lme model
 implements R2 from Edwards, Muller, Wolfinger, Qaqish and Schabenberger,
 2008.  need the aod package for wald.test function
 }
-\examples{
-
-
-
-}

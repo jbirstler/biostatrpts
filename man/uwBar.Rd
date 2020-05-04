@@ -95,16 +95,16 @@ uwBar is called by any biostatrpts function that creates bar plots.
 \examples{
 
 
-mat <- matrix(1:12,nrow=3)
-dimnames(mat) <- list(c('A','B','C'),c('D','E','F','G'))
+mat <- matrix(1:12, nrow = 3)
+dimnames(mat) <- list(c("A", "B", "C"), c("D", "E", "F", "G"))
 
-uwBar(mat,pBeside=TRUE,pHoriz=FALSE,lined=FALSE,
-      axLim=NULL,yLab=NULL,xLab=NULL,printBarVals=TRUE,
-      Legend=TRUE,LegendLoc='topright',LegendCex=0.8,
-      mgp.y=c(3,1,0),mgp.x=c(3,1,0),cex.names=1,barNamesLas=1,
-      barNamesSeq=1,barNamesAngle=0,digits=1)
-
-
+uwBar(mat,
+  pBeside = TRUE, pHoriz = FALSE, lined = FALSE,
+  axLim = NULL, yLab = NULL, xLab = NULL, printBarVals = TRUE,
+  Legend = TRUE, LegendLoc = "topright", LegendCex = 0.8,
+  mgp.y = c(3, 1, 0), mgp.x = c(3, 1, 0), cex.names = 1, barNamesLas = 1,
+  barNamesSeq = 1, barNamesAngle = 0, digits = 1
+)
 }
 \author{
 University of Wisconsin-Madison Biostatistics and Medical

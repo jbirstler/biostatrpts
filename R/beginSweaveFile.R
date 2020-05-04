@@ -25,6 +25,7 @@
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso Sweave()
 #' @export
+#' @importFrom utils file_test
 #' @examples
 #'
 #'

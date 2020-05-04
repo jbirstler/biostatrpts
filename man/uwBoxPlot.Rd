@@ -134,37 +134,39 @@ P-values do not have multiple comparison adjustments
 \examples{
 
 
-TRT <- c(rep('A',20), rep('B',20), rep('C',20))
-metric <- c(rnorm(20,2,1), rnorm(20,3,1), rnorm(20,4,1))
+TRT <- c(rep("A", 20), rep("B", 20), rep("C", 20))
+metric <- c(rnorm(20, 2, 1), rnorm(20, 3, 1), rnorm(20, 4, 1))
 
-dat <- data.frame(TRT,metric)
+dat <- data.frame(TRT, metric)
 
-uwBoxPlot(data=dat,
-             trxName='TRT', 
-             metricName='metric',
-             LatexFileName=NULL,
-             showTab=FALSE,
-             pTitle='Example of uwBoxPlot',
-             yLab='Weight of Something (oz)', 
-             plotMean=FALSE, pOutliers=FALSE,
-             boxWex=0.75,
-             Ropen=FALSE,
-             printPVals=TRUE,
-             pTest='t',
-             abbrevN=1,
-             pairwise=TRUE,
-             trxControl=NULL,
-             pExclude=NULL,
-             pInclude=list(list(c('A','B'),'C'), list('B','C'),
-                      list('A','C')),
-             yLim=NULL,
-             pStrWrap=FALSE,
-             pValCex=0.7,
-             LatexCaption=NULL,
-             col.just=c('|l|',rep('c',10),'|r','r|'),
-             firstCol.name=NULL
-            ) 
-
+uwBoxPlot(
+  data = dat,
+  trxName = "TRT",
+  metricName = "metric",
+  LatexFileName = NULL,
+  showTab = FALSE,
+  pTitle = "Example of uwBoxPlot",
+  yLab = "Weight of Something (oz)",
+  plotMean = FALSE, pOutliers = FALSE,
+  boxWex = 0.75,
+  Ropen = FALSE,
+  printPVals = TRUE,
+  pTest = "t",
+  abbrevN = 1,
+  pairwise = TRUE,
+  trxControl = NULL,
+  pExclude = NULL,
+  pInclude = list(
+    list(c("A", "B"), "C"), list("B", "C"),
+    list("A", "C")
+  ),
+  yLim = NULL,
+  pStrWrap = FALSE,
+  pValCex = 0.7,
+  LatexCaption = NULL,
+  col.just = c("|l|", rep("c", 10), "|r", "r|"),
+  firstCol.name = NULL
+)
 }
 \author{
 University of Wisconsin-Madison Biostatistics and Medical

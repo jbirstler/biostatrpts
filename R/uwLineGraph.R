@@ -66,6 +66,7 @@
 #' or median for all patients
 #' @param ... Any other arguments that can be passed to uwLatex
 #' @export
+#' @importFrom gdata drop.levels
 #' @examples
 #'
 #'
@@ -132,7 +133,6 @@ uwLineGraph <- function(data, metricName, trxName, factorName, LatexFileName = N
   }
   # remove any missing values in any of the variables
   dat <- dat[apply(is.na(dat), 1, sum) == 0, ]
-  # load library to get drop.levels function remove empty levels
   dat[[trxName]] <- drop.levels(dat[[trxName]], reorder = FALSE)
   dat[[factorName]] <- drop.levels(dat[[factorName]], reorder = FALSE)
 

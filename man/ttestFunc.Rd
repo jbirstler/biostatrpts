@@ -27,11 +27,10 @@ p-value rounded to 3 decimals is returned
 \examples{
 
 outcome <- rnorm(20)
-group <- factor(rep(c('A','B'),each=10))
-d.frame <- data.frame(outcome,group)
+group <- factor(rep(c("A", "B"), each = 10))
+d.frame <- data.frame(outcome, group)
 
-ttestFunc(d.frame,'outcome','group')
-
+ttestFunc(d.frame, "outcome", "group")
 }
 \seealso{
 meanFunc

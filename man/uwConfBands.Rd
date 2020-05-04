@@ -107,66 +107,77 @@ functions Required: uwLatex()
 \examples{
 
 
-data(colon) # from library(survival)
-colon$sex.f <- factor(colon$sex,levels=c(0,1),labels=c('Female','Male'))
-colon$surg.f <- factor(colon$surg, levels=c(0,1),
-labels=c('Short','Long'))
-colon$differ.f <- factor(colon$differ, levels=c(1,2,3),
-labels=c('Well','Moderate','Poor'))
+data(colon, package = "survival") # from library(survival)
+colon$sex.f <- factor(colon$sex, levels = c(0, 1), labels = c("Female", "Male"))
+colon$surg.f <- factor(colon$surg,
+  levels = c(0, 1),
+  labels = c("Short", "Long")
+)
+colon$differ.f <- factor(colon$differ,
+  levels = c(1, 2, 3),
+  labels = c("Well", "Moderate", "Poor")
+)
 
 
 
-uwConfBands(fullDat=colon,
-            trxName='rx',
-            trxLevels=c('Obs','Lev'),
-            factVarNames=c('sex.f','age','surg.f','differ.f'),
-            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
-            estimate='m',
-            metricName='nodes',
-            printPVals=FALSE,
-            LatexFileName=NULL)
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "m",
+  metricName = "nodes",
+  printPVals = FALSE,
+  LatexFileName = NULL
+)
 
 
-uwConfBands(fullDat=colon,
-            trxName='rx',
-            trxLevels=c('Obs','Lev'),
-            factVarNames=c('sex.f','age','surg.f','differ.f'),
-            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
-            estimate='p',
-            statusName='status',
-            printPVals=TRUE,
-            LatexFileName=NULL)
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "p",
+  statusName = "status",
+  printPVals = TRUE,
+  LatexFileName = NULL
+)
 
-layout(matrix(c(1,1,1,1,2,2,2,2),nrow=2,byrow=TRUE))
-uwConfBands(fullDat=colon,
-            trxName='rx',
-            trxLevels=c('Obs','Lev'),
-            factVarNames=c('sex.f','age','surg.f','differ.f'),
-            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
-            estimate='h',
-            statusName='status',
-            timeName='time',
-            xLim=c(0.25,5),
-            xLog=TRUE,
-            printPVals=TRUE,
-            interactPVals=TRUE,
-            LatexFileName=NULL)
+layout(matrix(c(1, 1, 1, 1, 2, 2, 2, 2), nrow = 2, byrow = TRUE))
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "h",
+  statusName = "status",
+  timeName = "time",
+  xLim = c(0.25, 5),
+  xLog = TRUE,
+  printPVals = TRUE,
+  interactPVals = TRUE,
+  LatexFileName = NULL
+)
 
-uwConfBands(fullDat=colon,
-            trxName='rx',
-            trxLevels=c('Obs','Lev'),
-            factVarNames=c('sex.f','age','surg.f','differ.f'),
-            factFigNames=c('Gender','Age','Time to Reg.','Tumor Diff.'),
-            estimate='h',
-            statusName='status',
-            timeName='time',
-            xLim=c(0,2),
-            xLog=FALSE,
-            xDetailed=FALSE,
-            printPVals=TRUE,
-            interactPVals=TRUE,
-            LatexFileName=NULL)
-
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "h",
+  statusName = "status",
+  timeName = "time",
+  xLim = c(0, 2),
+  xLog = FALSE,
+  xDetailed = FALSE,
+  printPVals = TRUE,
+  interactPVals = TRUE,
+  LatexFileName = NULL
+)
 }
 \seealso{
 uwLatex()

@@ -24,8 +24,7 @@
 #' Informatics Department, Scott Hetzel M.S.
 #' @seealso uwBoxPlot and uwBarPlot
 #' @export
-#' @examples
-#'
+#' @import graphics
 figureBox <- function(boxPlot = TRUE, demoBarPlot = FALSE, pHoriz = pHoriz, pTitle = pTitle, titleCex = titleCex,
                       printPVals = printPVals, pStrWrap = pStrWrap) {
   # figure out number of vertical units per line

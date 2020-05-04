@@ -98,25 +98,25 @@ post-pre.
 \examples{
 
 
-trt <- rep(c('Case','Control'), 60)
-id <- rep(rep(1:20, rep(2, 20)),3)
-fact <- rep(c('A','B','C'), c(40,40,40))
-met <- c(rnorm(40,10),rnorm(40,11),rnorm(40,12))
+trt <- rep(c("Case", "Control"), 60)
+id <- rep(rep(1:20, rep(2, 20)), 3)
+fact <- rep(c("A", "B", "C"), c(40, 40, 40))
+met <- c(rnorm(40, 10), rnorm(40, 11), rnorm(40, 12))
 
 df <- data.frame(trt, id, fact, met)
 
-uwPairedLeveledBoxPlot(pairData=df, pairName='trt', metricName='met',
-                       factorName='fact', ptID='id',
-                       LatexFileName=NULL,
-                       yLab='Normal', pTest='w',
-                       pTitle='Example of uwPairedLeveledBoxPlot',
-                       plotMean=TRUE, pOutliers=FALSE,
-                       lWhisker=.05, hWhisker=.95,
-                       rowLines=c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE),
-                       lHinge=.25, hHinge=.75, 
-                       boxWex=0.75, printPVals=TRUE)
-
-
+uwPairedLeveledBoxPlot(
+  pairData = df, pairName = "trt", metricName = "met",
+  factorName = "fact", ptID = "id",
+  LatexFileName = NULL,
+  yLab = "Normal", pTest = "w",
+  pTitle = "Example of uwPairedLeveledBoxPlot",
+  plotMean = TRUE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  rowLines = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE),
+  lHinge = .25, hHinge = .75,
+  boxWex = 0.75, printPVals = TRUE
+)
 }
 \seealso{
 uwLeveledBoxPlot, uwLatex

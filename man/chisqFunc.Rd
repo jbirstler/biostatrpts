@@ -29,12 +29,11 @@ p-value rounded to 3 decimals is returned
 \examples{
 
 set.seed(784)
-outcome <- factor(sample(c('No','Yes'),replace=TRUE,size=20))
-group <- factor(rep(c('A','B'),each=10))
-d.frame <- data.frame(outcome,group)
+outcome <- factor(sample(c("No", "Yes"), replace = TRUE, size = 20))
+group <- factor(rep(c("A", "B"), each = 10))
+d.frame <- data.frame(outcome, group)
 
-chisqFunc(d.frame,'outcome','group',fisher=TRUE)
-
+chisqFunc(d.frame, "outcome", "group", fisher = TRUE)
 }
 \seealso{
 tableFunc
