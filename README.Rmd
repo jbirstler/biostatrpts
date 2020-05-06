@@ -1,0 +1,32 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+## Install
+
+You can install the latest development version from github:
+
+```{r eval = F}
+devtools::install_github("jbirstler/biostatrpts")
+```
+
+By default, vignettes are not created. If you'd like to view vignettes, install with:
+
+```{r eval = F}
+devtools::install_github("jbirstler/biostatrpts", build_vignettes = TRUE)
+```
+
+To learn more about biostatrpts, start with the vignette:
+
+```{r eval=FALSE}
+browseVignettes("biostatrpts")
+```
+
