@@ -1,0 +1,11 @@
+# Install biostatrpts
+
+```{r}
+devtools::install_github("jbirstler/biostatrpts", build_vignettes = TRUE)
+```
+
+# See vignettes
+
+```{r}
+browseVignettes("biostatrpts")
+```
