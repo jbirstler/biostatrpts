@@ -438,7 +438,7 @@ uwBarPlot <- function(demoData,
   }
 
   if (is.null(LatexFileName)) {
-    print(LatexTab)
+    LatexTab
     warning("LatexFileName is NULL.  Table was not saved.")
   }
   else {

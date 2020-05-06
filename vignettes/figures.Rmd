@@ -1,0 +1,593 @@
+---
+title: "Examples of UW Figures"
+author: "Jen Birstler <birstler@wisc.edu>"
+output: 
+  html_document: 
+    highlight: tango
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+vignette: >
+  %\VignetteIndexEntry{Aesthetic specifications}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.dpi = 96,
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "98%"
+)
+```
+
+```{r setup}
+library(biostatrpts)
+set.seed(123)
+```
+
+# uwAccrualBars
+
+```{r fig.asp = 0.5, fig.width = 8}
+NN <- 200
+# generate random enrollment dates over
+randoDates <- data.frame(date = paste0(sample(1:12, size = NN, replace = TRUE),
+                                       "/01/",
+                                       sample(2019:2020, size = NN, replace = TRUE)),
+                         trt = sample(LETTERS[1:2], NN, replace = TRUE))
+
+ uwAccrualBars(
+   accData = randoDates, dateName = "date", trxName = NULL,
+   interval = "month", yLim = NULL, pHoriz = FALSE, pBeside = FALSE,
+   linedbars = FALSE
+ )
+```
+
+# uwBar
+Called internally
+
+```{r fig.asp = 0.5, fig.width = 8}
+mat <- matrix(1:12, nrow = 3)
+dimnames(mat) <- list(c("A", "B", "C"), c("D", "E", "F", "G"))
+uwBar(mat,
+   pBeside = TRUE, pHoriz = FALSE, lined = FALSE,
+   axLim = NULL, yLab = NULL, xLab = NULL, printBarVals = TRUE,
+   Legend = TRUE, LegendLoc = "topleft", LegendCex = 0.8,
+   mgp.y = c(3, 1, 0), mgp.x = c(3, 1, 0), cex.names = 1, barNamesLas = 1,
+   barNamesSeq = 1, barNamesAngle = 0, digits = 1
+)
+```
+
+# uwBarPlot {.tabset}
+
+```{r}
+TRT <- rep(c("A", "B", "C"), 30)
+AE <- ordered(
+  sample(c("None", "Mild", "Moderate", "Severe"), 90, replace = TRUE),
+  c("None", "Mild", "Moderate", "Severe")
+)
+data <- data.frame(TRT, AE)
+```
+
+## Example 1
+
+```{r fig.asp = 0.4, fig.width = 8}
+uwBarPlot(
+  demoData = data, trxName = NULL, factorName = "AE", Legend = TRUE, demoBarPlot = FALSE,
+  pHoriz = TRUE, pBeside = TRUE, xLab = "Number of Subjects", pTitle = "Adverse Events",
+  digits = 1, barNamesAngle = 60, cex.names = 0.8, lined = FALSE, Percent = FALSE,
+  barNamesLas = 1, barNamesSeq = 1, printPVals = TRUE, pTest = "f", pValCex = 0.6,
+  LatexFileName = NULL, LegendLoc = "topright"
+)
+```
+
+## Example 2
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwBarPlot(
+  demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = TRUE,
+  pHoriz = TRUE, xLab = "Number of Subjects", pTitle = "Adverse Events", digits = 1,
+  barNamesAngle = 0, lined = FALSE, Percent = FALSE, barNamesLas = 0, barNamesSeq = 1,
+  printPVals = TRUE, pTest = "f", pValCex = 0.6, LatexFileName = NULL, LegendLoc = "topleft",
+  pStrWrap = TRUE
+)
+```
+
+## Example 3
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwBarPlot(
+  demoData = data, trxName = "TRT", factorName = "AE", Legend = TRUE, demoBarPlot = FALSE,
+  pHoriz = FALSE, yLab = "Percent of Subjects", pTitle = "Adverse Events", digits = 1,
+  barNamesAngle = 0, lined = FALSE, Percent = TRUE, barNamesLas = 1, barNamesSeq = 1,
+  printPVals = TRUE, pTest = "f", pValCex = 0.6, LatexFileName = NULL, LegendLoc = "bottomleft"
+)
+```
+
+# uwBox
+Called internally
+
+```{r fig.asp = 0.4, fig.width = 8}
+TRT <- c(rep("A", 20), rep("B", 20), rep("C", 20))
+metric <- c(rnorm(20, 2, 1), rnorm(20, 3, 1), rnorm(20, 4, 1))
+dat <- data.frame(TRT, metric)
+uwBox(dat, "TRT", "metric")
+```
+
+
+# uwBoxPlot
+
+```{r fig.asp = .7, fig.width = 8}
+TRT <- c(rep("A", 20), rep("B", 20), rep("C", 20))
+metric <- c(rnorm(20, 2, 1), rnorm(20, 3, 1), rnorm(20, 4, 1))
+dat <- data.frame(TRT, metric)
+uwBoxPlot(
+  data = dat,
+  trxName = "TRT",
+  metricName = "metric",
+  LatexFileName = NULL,
+  showTab = FALSE,
+  pTitle = "Example of uwBoxPlot",
+  yLab = "Weight of Something (oz)",
+  plotMean = FALSE, pOutliers = FALSE,
+  boxWex = 0.75,
+  Ropen = FALSE,
+  printPVals = TRUE,
+  pTest = "t",
+  abbrevN = 1,
+  pairwise = TRUE,
+  trxControl = NULL,
+  pExclude = NULL,
+  pInclude = list(
+    list(c("A", "B"), "C"), list("B", "C"),
+    list("A", "C")
+  ),
+  yLim = NULL,
+  pStrWrap = FALSE,
+  pValCex = 0.7,
+  LatexCaption = NULL,
+  col.just = c("|l|", rep("c", 10), "|r", "r|"),
+  firstCol.name = NULL
+)
+```
+
+
+# uwConfBands {.tabset}
+
+```{r}
+data(colon, package = "survival")
+colon$sex.f <- factor(colon$sex, levels = c(0, 1), labels = c("Female", "Male"))
+colon$surg.f <- factor(colon$surg,
+  levels = c(0, 1),
+  labels = c("Short", "Long")
+)
+colon$differ.f <- factor(colon$differ,
+  levels = c(1, 2, 3),
+  labels = c("Well", "Moderate", "Poor")
+)
+```
+
+## Example 1
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "m",
+  metricName = "nodes",
+  printPVals = FALSE,
+  LatexFileName = NULL
+)
+```
+
+## Example 2
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "p",
+  statusName = "status",
+  printPVals = TRUE,
+  LatexFileName = NULL
+)
+```
+
+## Example 3
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "h",
+  statusName = "status",
+  timeName = "time",
+  xLim = c(0.25, 5),
+  xLog = TRUE,
+  printPVals = TRUE,
+  interactPVals = TRUE,
+  LatexFileName = NULL
+)
+```
+
+## Example 4
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwConfBands(
+  fullDat = colon,
+  trxName = "rx",
+  trxLevels = c("Obs", "Lev"),
+  factVarNames = c("sex.f", "age", "surg.f", "differ.f"),
+  factFigNames = c("Gender", "Age", "Time to Reg.", "Tumor Diff."),
+  estimate = "h",
+  statusName = "status",
+  timeName = "time",
+  xLim = c(0, 2),
+  xLog = FALSE,
+  xDetailed = FALSE,
+  printPVals = TRUE,
+  interactPVals = TRUE,
+  LatexFileName = NULL
+)
+```
+
+# uwCumulAccr {.tabset}
+
+```{r}
+Dates <- c(
+  "03/01/2008", "09/01/2007", "07/01/2007", "12/01/2006", "08/01/2007", "08/01/2007",
+  "04/01/2007", "04/01/2007", "04/01/2007", "11/01/2006", "11/01/2006", "12/01/2006",
+  "12/01/2006", "10/01/2006", "01/01/2007", "11/01/2006", "12/01/2006", "02/01/2007",
+  "08/01/2007", "08/01/2006", "09/01/2006", "04/01/2007", "05/01/2007", "11/01/2006",
+  "10/01/2006", "03/01/2007", "10/01/2007", "07/01/2007", "03/01/2007", "04/01/2006",
+  "05/01/2006", "11/01/2006", "12/01/2006", "02/01/2007", "02/01/2007", "02/01/2007",
+  "04/01/2007", "05/01/2007", "07/01/2007", "08/01/2007", "11/01/2007", "10/01/2007",
+  "09/01/2007", "10/01/2007", "05/01/2007", "01/01/2008", "12/01/2006", "02/01/2007",
+  "03/01/2007", "04/01/2007", "04/01/2007", "05/01/2007", "07/01/2007", "02/01/2007",
+  "07/01/2007", "10/01/2007", "01/01/2008"
+)
+Date <- chron::chron(Dates, format = c(dates = "m/d/y"))
+TRT <- rep(c("A", "B"), c(30, 27))
+data <- data.frame(Date, TRT)
+```
+
+## Example 1
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = NULL,
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL,
+  pTitle = "Accural over Time for Total Cohort",
+  projectLine = list(PatsPerTRT = as.numeric(), DaysPerTRT = as.numeric())
+)
+```
+
+## Example 2
+
+```{r fig.asp = 0.6, fig.width = 8}
+# Projected accrual of 32 per arm over 750 days
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = NULL,
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL, startDate = "01/01/2006",
+  pTitle = "Total Cohort with equal projected accrual",
+  projectLine = list(PatsPerTRT = 64, DaysPerTRT = 750)
+)
+```
+
+## Example 3
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = "TRT",
+  yLab = "Cumulative Number of Subjects",
+  yLim = NULL,
+  pTitle = "Accural over Time by Treatment Arm",
+  projectLine = list(PatsPerTRT = as.numeric(), DaysPerTRT = as.numeric())
+)
+```
+
+## Example 4
+
+```{r fig.asp = 0.6, fig.width = 8}
+# Projected accrual of 30 in A and 27 in B over 700 days
+uwCumulAccr(
+  accData = data, dateName = "Date", trxName = "TRT",
+  yLab = "Cumulative Number of Subjects",
+  yLim = c(0, 70), LegendCor = c(25, 55),
+  pTitle = "Accural over Time by Treatment Arm",
+  projectLine = list(PatsPerTRT = c(30, 27), DaysPerTRT = 700)
+)
+```
+
+# uwLeveledBoxPlot {.tabset}
+
+```{r}
+trt1 <- rep(rep(c("A", "B", "C"), 120), 3)
+fctr1 <- as.factor(rep(c(rep("Female", 180), rep("Male", 180)), 3))
+mtrc1 <- rnorm(360 * 3, 10, 4)
+upfct <- c(rep("Baseline", 360), rep("Week 12", 360), rep("Week 24", 360))
+ids <- as.character(c(1:360, 1:360, 1:360))
+dat1 <- data.frame(trt1, fctr1, mtrc1, upfct, ids)
+```
+
+## Example 1
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwLeveledBoxPlot(
+  allData = dat1,
+  trxName = "trt1",
+  metricName = "mtrc1",
+  lowfactName = "fctr1",
+  hifactName = "upfct",
+  delta = FALSE,
+  baseLevel = "Baseline",
+  idName = "ids",
+  LatexFileName = NULL,
+  showTab = FALSE,
+  Legend = FALSE,
+  pTitle = "Example of uwLeveledBoxPlot",
+  yLab = "Random Normal",
+  plotMean = TRUE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  lHinge = .25, hHinge = .75,
+  boxWex = 0.75,
+  printPVals = TRUE,
+  PVinTableOnly = FALSE,
+  PValCex = 0.5,
+  Ropen = FALSE,
+  pTest = "t",
+  abbrevN = 1,
+  pairwise = TRUE,
+  trxControl = NULL,
+  pExclude = NULL,
+  yLim = NULL
+)
+```
+
+## Example 2
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwLeveledBoxPlot(
+  allData = dat1,
+  trxName = "trt1",
+  metricName = "mtrc1",
+  lowfactName = "fctr1",
+  hifactName = "upfct",
+  delta = TRUE,
+  deltaPct = FALSE,
+  baseLevel = "Baseline",
+  idName = "ids",
+  LatexFileName = NULL,
+  showTab = FALSE,
+  Legend = TRUE,
+  LegendLoc = "topleft",
+  pTitle = "Example of uwLeveledBoxPlot with delta=TRUE",
+  yLab = "Random Normal",
+  plotMean = FALSE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  lHinge = .25, hHinge = .75,
+  boxWex = 0.75,
+  printPVals = TRUE,
+  PVinTableOnly = FALSE,
+  PValCex = 0.5,
+  Ropen = FALSE,
+  pTest = "w",
+  abbrevN = 1,
+  pairwise = TRUE,
+  trxControl = NULL,
+  pExclude = NULL,
+  pInclude = list(list(c("A", "B"), "C"), list("A", c("B", "C")), list("A", "C")),
+  yLim = NULL
+)
+```
+
+## Example 3
+
+```{r fig.asp = 0.6, fig.width = 8}
+uwLeveledBoxPlot(
+  allData = dat1,
+  trxName = "trt1",
+  metricName = "mtrc1",
+  lowfactName = "fctr1",
+  hifactName = "upfct",
+  delta = TRUE,
+  deltaPct = TRUE,
+  baseLevel = "Baseline",
+  idName = "ids",
+  LatexFileName = NULL,
+  showTab = FALSE,
+  Legend = TRUE,
+  LegendLoc = "topleft",
+  pTitle = "Example of uwLeveledBoxPlot with deltaPct=TRUE",
+  yLab = "Random Normal",
+  plotMean = FALSE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  lHinge = .25, hHinge = .75,
+  boxWex = 0.75,
+  printPVals = TRUE,
+  PVinTableOnly = FALSE,
+  PValCex = 0.5,
+  Ropen = FALSE,
+  pTest = "w",
+  abbrevN = 1,
+  pairwise = TRUE,
+  trxControl = NULL,
+  pExclude = NULL,
+  pInclude = list(list(c("A", "B"), "C"), list("A", c("B", "C")), list("A", "C")),
+  yLim = NULL
+)
+```
+
+# uwLineGraph
+
+```{r fig.asp = 0.6, fig.width = 8}
+TRT <- rep(rep(c("A", "B", "C"), c(20, 20, 20)), 4)
+
+ptID <- rep(1:60, 4)
+ptID <- factor(ptID)
+
+numVar <- c(
+  rnorm(20, 0, 1), rnorm(20, 1, 1), rnorm(20, 2, 1), rnorm(20, 3, 1),
+  rnorm(20, 3, 1), rnorm(20, 10, 1), rnorm(20, 2, 3), rnorm(20, 0, 1),
+  rnorm(20, 6, 1), rnorm(20, 1, 3), rnorm(20, 2, 5), rnorm(20, 3, 1)
+)
+
+timeVar <- rep(c("Baseline", "3 Months", "6 Months", "12 Months"), c(60, 60, 60, 60))
+timeVar <- ordered(
+  timeVar,
+  c("Baseline", "3 Months", "6 Months", "12 Months")
+)
+
+df <- data.frame(TRT, ptID, numVar, timeVar)
+
+uwLineGraph(
+  data = df,
+  metricName = "numVar",
+  trxName = "TRT",
+  factorName = "timeVar",
+  LatexFileName = NULL,
+  plotMean = TRUE,
+  pch = NULL,
+  colScale = TRUE,
+  yLim = NULL,
+  yLab = "",
+  xLab = "",
+  pTitle = "Example of uwLineGraph",
+  refLines = TRUE,
+  Legend = TRUE,
+  LegendLoc = "topright",
+  printPVals = TRUE,
+  pTest = "t",
+  pExclude = NULL,
+  trxControl = "A",
+  pairDiffTab = TRUE,
+  ptIDname = "ptID",
+  BaseLevel = "Baseline",
+  numDec = 2,
+  rowLines = list(c(FALSE), c(FALSE)),
+  caption = list(c(NULL), c(NULL)),
+  firstCol.name = "Time",
+  Ropen = FALSE
+)
+```
+
+# uwPairedBoxPlot
+
+```{r fig.asp = 0.6, fig.width = 8}
+Time <- ordered(c(rep("Pre", 100), rep("Post", 100)), c("Pre", "Post"))
+ID <- rep(sample(c(1:100), 100, replace = FALSE), 2) # IDs will not be in order
+weight <- c(rnorm(100, 200, 3), rnorm(100, 197, 3)) # pretend they are paired
+
+ID[3] <- NA
+ID[176] <- NA # Possible missing data
+ID[150] <- 101 # Say someone as only one reading in post
+
+dat <- data.frame(Time, ID, weight)
+
+uwPairedBoxPlot(
+  allData = dat,
+  pairName = "Time",
+  metricName = "weight",
+  ptID = "ID",
+  onlyPairs = TRUE,
+  plotDiff = TRUE,
+  chgLayout = TRUE,
+  pWilcox = TRUE,
+  LatexFileName = NULL,
+  pTitle = "uwPairedBoxPlot Example",
+  yLab = "Weight (lbs.)",
+  plotMean = FALSE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  lHinge = .25, hHinge = .75,
+  boxWex = .75,
+  printPVals = TRUE,
+  yLim = NULL,
+  footNote = NULL,
+  firstCol.name = NULL,
+  LatexCaption = NULL,
+  caption.loc = "bottom",
+  showTab = FALSE,
+  label = NULL
+)
+```
+
+# uwPairedLeveledBoxPlot
+
+```{r fig.asp = 1, fig.width = 8}
+trt <- rep(c("Case", "Control"), 60)
+id <- rep(rep(1:20, rep(2, 20)), 3)
+fact <- rep(c("A", "B", "C"), c(40, 40, 40))
+met <- c(rnorm(40, 10), rnorm(40, 11), rnorm(40, 12))
+
+df <- data.frame(trt, id, fact, met)
+uwPairedLeveledBoxPlot(
+  pairData = df, pairName = "trt", metricName = "met",
+  factorName = "fact", ptID = "id",
+  LatexFileName = NULL,
+  yLab = "Normal", pTest = "w",
+  pTitle = "Example of uwPairedLeveledBoxPlot",
+  plotMean = TRUE, pOutliers = FALSE,
+  lWhisker = .05, hWhisker = .95,
+  rowLines = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE),
+  lHinge = .25, hHinge = .75,
+  boxWex = 0.75, printPVals = TRUE
+)
+```
+
+# uwSimpleReg
+
+```{r fig.asp = 0.6, fig.width = 8}
+Xvar <- rnorm(50, -10, 1)
+Yvar <- 0.5 * Xvar + rnorm(50, 0, 1)
+
+dfLin <- data.frame(Xvar, Yvar)
+
+layout(1)
+uwSimpleReg(
+  Data = dfLin, respVar = "Yvar", depVar = "Xvar",
+  main = "Example of uwSimpleReg",
+  ylab = "Example Response", xlab = "Example Explanatory",
+  ylim = NULL, xlim = NULL, printPVal = TRUE, printModel = TRUE, printRsq = TRUE
+)
+```
+
+# uwSurvival
+
+```{r fig.asp = 0.8, fig.width = 8}
+death <- sample(c(0, 1), 200, replace = TRUE, prob = c(0.4, 0.6))
+trt <- rep(c("ABDC", "ABGH"), c(100, 100))
+time <- ceiling(runif(200, 0, 100))
+
+sData <- data.frame(death, trt, time)
+uwSurvival(
+  survData = sData, statusName = "death", trxName = "trt", trxControl = "ABDC",
+  timeName = "time", pTitle = "Survival by Treatment",
+  yLab = "Percent of Survival Probability",
+  xLab = "Days from Randomization", pValCex = 0.8, SScex = 0.7,
+  markCensor = FALSE, Legend = TRUE, LegendLoc = "topright",
+  LatexFileName = c(
+    paste(getwd(), "surv1.tex", sep = ""),
+    paste(getwd(), "/surv2.tex", sep = "")
+  ),
+  showTab = FALSE, printPVals = TRUE, printSS = TRUE,
+  Ropen = FALSE, GraphSSfreq = 5, TableSSfreq = 1, firstCol.name = NULL,
+  LatexCaption = NULL, SSinPlot = TRUE,
+  size = "scriptsize"
+)
+```
+
+
+
+
